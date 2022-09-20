@@ -69,7 +69,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
 
 static void execute(uint64_t n) {
   Decode s;
+  int a=1;
   for (;n > 0; n --) {
+	printf("%d\n",a);
 	printf("%d\n",nemu_state.state);
     exec_once(&s, cpu.pc);
 	printf("%d\n",nemu_state.state);
