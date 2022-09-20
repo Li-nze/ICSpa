@@ -101,6 +101,7 @@ void cpu_exec(uint64_t n) {
       return;
     default: nemu_state.state = NEMU_RUNNING;
   }
+  printf("%d\n",nemu_state.state);
 
   uint64_t timer_start = get_time();
 
@@ -108,6 +109,8 @@ void cpu_exec(uint64_t n) {
 
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
+  
+  printf("%d\n",nemu_state.state);
 
   switch (nemu_state.state) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
