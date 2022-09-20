@@ -50,6 +50,7 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) {
   //cpu_exec(-1);
+  printf("%d",nemu_state.state);
   return -1;
 }
 
