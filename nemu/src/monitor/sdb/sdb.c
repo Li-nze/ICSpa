@@ -132,6 +132,7 @@ void sdb_mainloop() {
         break;
       }
     }
+	printf("%d\n",nemu_state.state);
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
   }
