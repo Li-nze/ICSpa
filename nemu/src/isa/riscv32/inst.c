@@ -47,13 +47,9 @@ static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, wor
 }
 
 static int decode_exec(Decode *s) {
-  printf("%d\n",nemu_state.state);
   int dest = 0;
-  printf("%d\n",nemu_state.state);
   word_t src1 = 0, src2 = 0, imm = 0;
-  printf("%d\n",nemu_state.state);
   s->dnpc = s->snpc;
-  printf("%d\n",nemu_state.state);
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
