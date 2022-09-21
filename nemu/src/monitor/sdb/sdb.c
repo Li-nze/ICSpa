@@ -50,7 +50,7 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) {
   //cpu_exec(-1);
-  //printf("%d\n,%d\n,%d\n,%d\n",nemu_state.state,NEMU_END,NEMU_ABORT,NEMU_RUNNING);
+  printf("%d\n,%d\n,%d\n,%d\n",nemu_state.state,NEMU_END,NEMU_ABORT,NEMU_RUNNING);
   return -1;
 }
 
