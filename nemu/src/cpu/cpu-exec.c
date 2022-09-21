@@ -43,7 +43,9 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;
   s->snpc = pc;
+  printf("0: %d\n",nemu_state.state);
   isa_exec_once(s);
+  printf("1: %d\n",nemu_state.state);
   cpu.pc = s->dnpc;
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
