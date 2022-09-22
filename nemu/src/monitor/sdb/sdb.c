@@ -54,7 +54,6 @@ static int cmd_q(char *args) {
 }
 
 
-
 static int cmd_si(char *args){
 	// the steps of instructions to execute
 	unsigned int step=0;
@@ -83,6 +82,7 @@ static int cmd_si(char *args){
 	return 0;
 }
 
+static int cmd_info(char *args);
 
 static int cmd_help(char *args);
 
@@ -95,7 +95,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Execute next program line (after stopping); step ? function", cmd_si},
-  //{ "info", "Print the infomation of SUBCMD", cmd_info },
+  {"info", "Print the infomation of SUBCMD", cmd_info },
   //{ "x", "evaluate the EXPR, and print the N 4 btyes from the address of EXPR", cmd_x },
   //{ "p", "evaluate and print the EXPR", cmd_p },
   //{ "w", "halt when the EXPR changes", cmd_w },
@@ -106,6 +106,24 @@ static struct {
 };
 
 #define NR_CMD ARRLEN(cmd_table)
+
+
+static int  cmd_info(char *args){
+	char *arg=strtok(NULL," ");
+	if(arg==NULL){
+		for (int i = 0; i < NR_CMD;++i){
+			printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+		}
+	}
+	else if(arg[0]=='r'){
+		
+	}
+	else if(arg[0]=='w'){
+
+	}
+	return 0;
+}
+
 
 static int cmd_help(char *args) {
   /* extract the first argument */
