@@ -24,7 +24,7 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
-	unsigned int my_indent=10;
+	unsigned int my_indent=15;
 	unsigned int len=(unsigned int)(sizeof(regs)/sizeof(regs[0]));
 	printf("%-*s%-*x%-*d\n", my_indent, "PC",  my_indent, cpu.pc, my_indent,  cpu.pc);
 	for(int i=0;i<len;++i){
