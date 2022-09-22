@@ -27,9 +27,9 @@ void isa_reg_display() {
 	unsigned int len;
 	len=(unsigned int)(sizeof(regs)/sizeof(regs[0]));
 	printf("%u\n",len);
-	printf("PC	%x	%d", cpu.pc, cpu.pc);
+	printf("PC	%x	%d\n", cpu.pc, cpu.pc);
 	for(int i=0;i<len;++i){
-		printf("%s	%x	%d", regs[i], cpu.gpr[i], cpu.gpr[i]);
+		printf("%s	%x	%d\n", regs[i], cpu.gpr[i], cpu.gpr[i]);
 	}
 }
 
