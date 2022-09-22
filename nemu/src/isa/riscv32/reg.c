@@ -16,6 +16,7 @@
 #include <isa.h>
 #include "local-include/reg.h"
 
+// register name, register is cpu.pc and cpu.gpr[] in cpu-exec.c
 const char *regs[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
   "s0", "s1", "a0", "a1", "a2", "a3", "a4", "a5",
@@ -23,12 +24,13 @@ const char *regs[] = {
   "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
 };
 
+// print all the registers
 void isa_reg_display() {
 	unsigned int my_indent=15;
 	unsigned int len=(unsigned int)(sizeof(regs)/sizeof(regs[0]));
 	printf("%-*s%#-*x%-*d\n", my_indent, "PC",  my_indent, cpu.pc, my_indent,  cpu.pc);
 	for(int i=0;i<len;++i){
-		printf("%-*s%#-*x%-*d\n", my_indent, regs[i], my_indent, 10, my_indent, cpu.gpr[i]);
+		printf("%-*s%#-*x%-*d\n", my_indent, regs[i], my_indent, cpu.gpr[i], my_indent, cpu.gpr[i]);
 	}
 }
 

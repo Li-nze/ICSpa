@@ -119,7 +119,7 @@ static int  cmd_info(char *args){
 		isa_reg_display();		
 	}
 	else if(arg[0]=='w'){
-
+		printf("still unrealized");
 	}
 	return 0;
 }
