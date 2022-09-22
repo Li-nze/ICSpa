@@ -60,9 +60,11 @@ static int cmd_si(char *args){
 	unsigned int step=0;
 	char* arg;
 	arg=strtok(NULL," ");
+	// if no arguement
 	if(arg==NULL){
 		step=1;
 	}
+	//if arguement is negtive, then convert to unsigned int
 	else if(arg[0]=='-'){
 		int res=0;
 		for(int i=1;i<strlen(arg);++i){
@@ -70,6 +72,7 @@ static int cmd_si(char *args){
 		}
 		step=(unsigned int)(-1*res);
 	}
+	//if arguement is postive
 	else{
 		for(int i=0;i<strlen(arg);++i){
 		  step=step*10+(unsigned int)arg[i]-(unsigned int)'0';
