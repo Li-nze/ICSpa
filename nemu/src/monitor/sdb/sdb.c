@@ -53,6 +53,34 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+
+
+static int cmd_si(char *args){
+	// the steps of instructions to execute
+	unsigned int step=0;
+	char* arg;
+	arg=strtok(NULL," ");
+	if(arg==NULL){
+		step=1;
+	}
+	else if(arg[0]=='-'){
+		int res=0;
+		for(int i=1;i<strlen(arg);++i){
+			res=res*10+(int)arg[i]-(int)'0';
+		}
+		step=(unsigned int)(-1*res);
+	}
+	else{
+		for(int i=0;i<strlen(arg);++i){
+		  step=step*10+(unsigned int)arg[i]-(unsigned int)'0';
+		}	  
+	}
+	// later found that sscanf(arg, "%u", &step) is much better
+	cpu_exec(step);
+	return 0;
+}
+
+
 static int cmd_help(char *args);
 
 static struct {
@@ -63,6 +91,12 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  { "si", "Execute next program line (after stopping); step ? function", cmd_si},
+  //{ "info", "Print the infomation of SUBCMD", cmd_info },
+  //{ "x", "evaluate the EXPR, and print the N 4 btyes from the address of EXPR", cmd_x },
+  //{ "p", "evaluate and print the EXPR", cmd_p },
+  //{ "w", "halt when the EXPR changes", cmd_w },
+  //{ "d", "delete the N watchpoint", cmd_d }
 
   /* TODO: Add more commands */
 
