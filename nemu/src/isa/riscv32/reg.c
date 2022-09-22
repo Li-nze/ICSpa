@@ -24,12 +24,11 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
-	unsigned int len;
-	len=(unsigned int)(sizeof(regs)/sizeof(regs[0]));
-	printf("%u\n",len);
-	printf("PC	%x	%d\n", cpu.pc, cpu.pc);
+	unsigned int my_indent=6;
+	unsigned int len=(unsigned int)(sizeof(regs)/sizeof(regs[0]));
+	printf("PC     %-*x%-*d\n", my_indent, cpu.pc, my_indent,  cpu.pc);
 	for(int i=0;i<len;++i){
-		printf("%s	%x	%d\n", regs[i], cpu.gpr[i], cpu.gpr[i]);
+		printf("%-*s%-*x%-*d\n", my_indent, regs[i], my_indent, cpu.gpr[i], my_indent, cpu.gpr[i]);
 	}
 }
 
