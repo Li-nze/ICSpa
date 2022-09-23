@@ -18,6 +18,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+// hlz add
+#include<memory/paddr.h>
 
 static int is_batch_mode = false;
 
@@ -72,8 +74,8 @@ static int cmd_x(char *args){
 		sscanf(arg, "%x", &add);
 		//pmem_read not import !!! fix it!!!
 		//word_t res=pmem_read(add,n);
-		//word_t res=paddr_read(add,n);
-		//printf("%x",res);
+		word_t res=paddr_read(add,n);
+		printf("%x",res);
 		return 0;
 	}
 }
