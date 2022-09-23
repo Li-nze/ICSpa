@@ -70,14 +70,15 @@ static int cmd_x(char *args){
 		return 0;
 	}
 	else{
+		unsigned int my_indent=10;
 		paddr_t add;
 		sscanf(arg, "%x", &add);
 		printf("%x\n",add);
 		word_t res;
 		for(int i=0;i<n;++i){
 			res=paddr_read(add,4);
+			printf("%#-*x%#-*x\n",my_indent, add, my_indent, add);
 			add+=4;
-			printf("%x\n",add);
 			printf("%x\n",res);
 		}
 		return 0;
