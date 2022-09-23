@@ -54,6 +54,27 @@ static int cmd_q(char *args) {
 }
 
 
+static int cmd_x(char *args){
+	char *arg=strtok(NULL, " ");
+	int n;
+	sscanf(arg,"%d",&n);
+	arg=strtok(NULL," ");
+	if(arg==NULL){
+		printf("Please enter EXPR to specify the memory address to read. \n");
+		return 0;
+	}
+	else{
+		paddr_t add;
+		sscanf(arg, "%x", &add);
+		//pmem_read not import !!! fix it!!!
+		//word_t res=pmem_read(add,n);
+		//word_t res=paddr_read(add,n);
+		//printf("%x",res);
+		return 0;
+	}
+}
+
+
 static int cmd_si(char *args){
 	// the steps of instructions to execute
 	unsigned int step=0;
@@ -96,7 +117,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Execute next program line (after stopping); step ? function", cmd_si},
   {"info", "Print the infomation of SUBCMD", cmd_info },
-  //{ "x", "evaluate the EXPR, and print the N 4 btyes from the address of EXPR", cmd_x },
+  {"x", "evaluate the EXPR, and print the N 4 btyes from the address of EXPR", cmd_x },
   //{ "p", "evaluate and print the EXPR", cmd_p },
   //{ "w", "halt when the EXPR changes", cmd_w },
   //{ "d", "delete the N watchpoint", cmd_d }
