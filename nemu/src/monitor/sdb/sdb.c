@@ -75,9 +75,10 @@ static int cmd_x(char *args){
 		sscanf(arg, "%x", &add);
 		printf("%x\n",add);
 		word_t res;
+		printf("%*s%*s\n",my_indent,"address",my_indent,"content");
 		for(int i=0;i<n;++i){
 			res=paddr_read(add,4);
-			printf("%#-*x%#-*x\n",my_indent, add, my_indent, add);
+			printf("%#-*x%#-*x\n",my_indent, add, my_indent, res);
 			add+=4;
 			printf("%x\n",res);
 		}
