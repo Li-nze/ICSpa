@@ -70,7 +70,7 @@ static int cmd_x(char *args){
 		return 0;
 	}
 	else{
-		unsigned int my_indent=10;
+		unsigned int my_indent=16;
 		paddr_t add;
 		sscanf(arg, "%x", &add);
 		printf("%x\n",add);
