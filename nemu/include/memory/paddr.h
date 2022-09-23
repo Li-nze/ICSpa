@@ -31,6 +31,11 @@ static inline bool in_pmem(paddr_t addr) {
   return addr - CONFIG_MBASE < CONFIG_MSIZE;
 }
 
+/*
+ * if len==1, print 1 bytes(8 BITs) after addr
+ * if len==2, print 2 bytes(16 BITs) after addr
+ * if len==4, print 4 bytes(32 BTs) after addr
+*/
 word_t paddr_read(paddr_t addr, int len);
 void paddr_write(paddr_t addr, int len, word_t data);
 

@@ -56,6 +56,12 @@ void init_mem() {
   Log("physical memory area [" FMT_PADDR ", " FMT_PADDR "]", PMEM_LEFT, PMEM_RIGHT);
 }
 
+/*
+ * if len==1, print 1 bytes(8 BITs) after addr
+ * if len==2, print 2 bytes(16 BITs) after addr
+ * if len==4, print 4 bytes(32 BTs) after addr
+ * use this function as interface
+*/
 word_t paddr_read(paddr_t addr, int len) {
   if (likely(in_pmem(addr))) return pmem_read(addr, len);
   IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));

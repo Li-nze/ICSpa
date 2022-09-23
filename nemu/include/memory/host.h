@@ -18,6 +18,11 @@
 
 #include <common.h>
 
+/*
+ * if len==1, print 1 bytes(8 BITs) after addr
+ * if len==2, print 2 bytes(16 BITs) after addr
+ * if len==4, print 4 bytes(32 BTs) after addr
+*/
 static inline word_t host_read(void *addr, int len) {
   switch (len) {
     case 1: return *(uint8_t  *)addr;
