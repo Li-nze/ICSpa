@@ -62,6 +62,7 @@ static int cmd_x(char *args){
 	}
 	int n;
 	sscanf(arg,"%d",&n);
+	arg=strtok(NULL, " ");
 	if(arg==NULL){
 		printf("Please enter EXPR to specify the memory address to read. \n");
 		return 0;
