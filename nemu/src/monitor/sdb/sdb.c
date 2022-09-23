@@ -78,7 +78,7 @@ static int cmd_x(char *args){
 		printf("\n");
 		for(int i=0;i<n;++i){
 			res=paddr_read(add,4);
-			printf("%#-*x%#8x\n",my_indent, add, res);
+			printf("%#-*x0x%8x\n",my_indent, add, res);
 			add+=4;
 		}
 		return 0;
