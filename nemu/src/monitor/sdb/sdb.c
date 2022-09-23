@@ -56,9 +56,12 @@ static int cmd_q(char *args) {
 
 static int cmd_x(char *args){
 	char *arg=strtok(NULL, " ");
+	if(arg==NULL){
+		printf("Please enter N to specify the bytes to read. \n");
+		return 0;
+	}
 	int n;
 	sscanf(arg,"%d",&n);
-	arg=strtok(NULL," ");
 	if(arg==NULL){
 		printf("Please enter EXPR to specify the memory address to read. \n");
 		return 0;
