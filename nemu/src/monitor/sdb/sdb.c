@@ -52,6 +52,7 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) {
   nemu_state.state=NEMU_QUIT;
+	  printf("he\n");
   return -1;
 }
 
@@ -229,7 +230,6 @@ void sdb_mainloop() {
         break;
       }
     }
-	  printf("he\n");
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
   }
