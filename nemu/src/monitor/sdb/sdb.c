@@ -36,6 +36,7 @@ static char* rl_gets() {
   }
 
   line_read = readline("(nemu) ");
+  printf("he\n");
 
   if (line_read && *line_read) {
     add_history(line_read);
@@ -52,7 +53,6 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) {
   nemu_state.state=NEMU_QUIT;
-  printf("Hello\n");
   return -1;
 }
 
