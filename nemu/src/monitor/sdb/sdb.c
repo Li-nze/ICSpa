@@ -215,7 +215,6 @@ void sdb_mainloop() {
     if (args >= str_end) {
       args = NULL;
     }
-	  printf("he\n");
 
 #ifdef CONFIG_DEVICE
     extern void sdl_clear_event_queue();
@@ -230,6 +229,7 @@ void sdb_mainloop() {
         break;
       }
     }
+	  printf("he\n");
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
   }
