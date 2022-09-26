@@ -190,13 +190,6 @@ void sdb_mainloop() {
     return;
   }
 
-  {//hlzt
-  char* e=readline("expr: ");
-  bool *su;
-  su=(bool *)malloc(sizeof(bool));
-  *su=true;
-  printf("%d\n", expr(e,su));
-	}
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
 
@@ -232,10 +225,6 @@ void sdb_mainloop() {
 void init_sdb() {
   /* Compile the regular expressions. */
   init_regex();
-  {
-  //hlzt
-  printf("init_regex() succeeds. \n");
-  }
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();
