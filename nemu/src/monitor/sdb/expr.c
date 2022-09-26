@@ -19,6 +19,8 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
+//hlz add
+#include <string.h>
 
 enum {
   TK_NUM=0, TK_NOTYPE = 256, TK_EQ,
@@ -40,7 +42,8 @@ static struct rule {
 	{"\\/", '/'},		// divide
 	{"\\*", '*'},		// multiply
 	{"-", '-'},			// minus
-	{"\\)", ')'},		// right parenthese
+	{"\\)", ')'},		// right parenthese:q
+						//
 	{"\\(", '('},		// left parenthese
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
@@ -108,8 +111,16 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+			case TK_NUM: tokens[nr_token].type=TK_NUM;strcpy(tokens[nr_token].str,substr_start);break;
+			case '/': tokens[nr_token].type='/';strcpy(tokens[nr_token].str,substr_start);break;
+			case '*': tokens[nr_token].type='*';strcpy(tokens[nr_token].str,substr_start);break;
+			case '-': tokens[nr_token].type='-';strcpy(tokens[nr_token].str,substr_start);break;
+			case ')': tokens[nr_token].type=')';strcpy(tokens[nr_token].str,substr_start);break;
+			case '(': tokens[nr_token].type='(';strcpy(tokens[nr_token].str,substr_start);break;
+			case '+': tokens[nr_token].type='+';strcpy(tokens[nr_token].str,substr_start);break;
+			case TK_EQ: tokens[nr_token].type=TK_EQ;strcpy(tokens[nr_token].str,substr_start);break;
         }
+		++nr_token;
 
         break;
       }
@@ -129,7 +140,6 @@ static bool make_token(char *e) {
 //main function
 word_t expr(char *e, bool *success) {
 	//check whether 'e' match tokens in re(specific token types). 
-	TODO();
   if (!make_token(e)) {
     *success = false;
     return 0;
