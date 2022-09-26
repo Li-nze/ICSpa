@@ -52,7 +52,6 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) {
   nemu_state.state=NEMU_QUIT;
-	  printf("he\n");
   return -1;
 }
 
@@ -223,6 +222,7 @@ void sdb_mainloop() {
 #endif
 
     int i;
+	// 这句话是原来就有的还是我加的？
 	printf("%s\n",cmd);
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
