@@ -40,7 +40,6 @@ static char* rl_gets() {
   if (line_read && *line_read) {
     add_history(line_read);
   }
-  printf("he\n");
 
   return line_read;
 }
@@ -203,6 +202,7 @@ void sdb_mainloop() {
   }
 	}
   for (char *str; (str = rl_gets()) != NULL; ) {
+	  printf("he\n");
     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
