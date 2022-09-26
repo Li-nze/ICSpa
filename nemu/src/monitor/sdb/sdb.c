@@ -202,7 +202,6 @@ void sdb_mainloop() {
   }
 	}
   for (char *str; (str = rl_gets()) != NULL; ) {
-	  printf("he\n");
     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
@@ -216,6 +215,7 @@ void sdb_mainloop() {
     if (args >= str_end) {
       args = NULL;
     }
+	  printf("he\n");
 
 #ifdef CONFIG_DEVICE
     extern void sdl_clear_event_queue();
