@@ -192,11 +192,14 @@ void sdb_mainloop() {
 
   {//hlzt
   char* e=readline("expr: ");
-  bool *su;
-  su=(bool *)malloc(sizeof(bool));
-  *su=true;
-  printf("%d\n", expr(e,su));
-  printf("su: %d\n", *su);
+  while(strcmp(e,"qw")!=0){
+	bool *su;
+	su=(bool *)malloc(sizeof(bool));
+	*su=true;
+	printf("%d\n", expr(e,su));
+	printf("su: %d\n", *su);
+	e=readline("expr: ");	
+  }
 	}
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
