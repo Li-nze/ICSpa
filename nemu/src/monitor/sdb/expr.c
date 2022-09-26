@@ -111,14 +111,30 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-			case TK_NUM: tokens[nr_token].type=TK_NUM;strcpy(tokens[nr_token].str,substr_start);break;
-			case '/': tokens[nr_token].type='/';strcpy(tokens[nr_token].str,substr_start);break;
-			case '*': tokens[nr_token].type='*';strcpy(tokens[nr_token].str,substr_start);break;
-			case '-': tokens[nr_token].type='-';strcpy(tokens[nr_token].str,substr_start);break;
-			case ')': tokens[nr_token].type=')';strcpy(tokens[nr_token].str,substr_start);break;
-			case '(': tokens[nr_token].type='(';strcpy(tokens[nr_token].str,substr_start);break;
-			case '+': tokens[nr_token].type='+';strcpy(tokens[nr_token].str,substr_start);break;
-			case TK_EQ: tokens[nr_token].type=TK_EQ;strcpy(tokens[nr_token].str,substr_start);break;
+			case TK_NUM: tokens[nr_token].type=TK_NUM;
+						 strcpy(tokens[nr_token].str,substr_start);
+						 tokens[nr_token].str[substr_len]=0;break;
+			case '/': tokens[nr_token].type='/';
+					  strcpy(tokens[nr_token].str,substr_start);
+					  tokens[nr_token].str[substr_len]=0;break;
+			case '*': tokens[nr_token].type='*';
+					  strcpy(tokens[nr_token].str,substr_start);
+					  tokens[nr_token].str[substr_len]=0;break;
+			case '-': tokens[nr_token].type='-';
+					  strcpy(tokens[nr_token].str,substr_start);
+					  tokens[nr_token].str[substr_len]=0;break;
+			case ')': tokens[nr_token].type=')';
+					  strcpy(tokens[nr_token].str,substr_start);
+					  tokens[nr_token].str[substr_len]=0;break;
+			case '(': tokens[nr_token].type='(';
+					  strcpy(tokens[nr_token].str,substr_start);
+					  tokens[nr_token].str[substr_len]=0;break;
+			case '+': tokens[nr_token].type='+';
+					  strcpy(tokens[nr_token].str,substr_start);
+					  tokens[nr_token].str[substr_len]=0;break;
+			case TK_EQ: tokens[nr_token].type=TK_EQ;
+						strcpy(tokens[nr_token].str,substr_start);
+						tokens[nr_token].str[substr_len]=0;break;
         }
 		++nr_token;
 
