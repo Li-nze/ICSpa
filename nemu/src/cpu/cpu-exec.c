@@ -28,15 +28,16 @@
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
+// whether to print the log message while processing
 static bool g_print_step = false;
 
 void device_update();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
-	printf("%s\n",_this->logbuf);
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
+  /*print the log message for single instruction*/
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 }
@@ -95,6 +96,7 @@ void assert_fail_msg() {
 
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
+	//check whether to print the log message for single instruction
   g_print_step = (n < MAX_INST_TO_PRINT);
   switch (nemu_state.state) {
     case NEMU_END: case NEMU_ABORT:

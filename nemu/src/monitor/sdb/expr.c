@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,
+  TK_NUM=0, TK_NOTYPE = 256, TK_EQ,
 
   /* TODO: Add more token types */
 
@@ -36,11 +36,18 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
+	{"[0-9]+", TK_NUM},	// decimal number
+	{"\\/", '/'},		// divide
+	{"\\*", '*'},		// multiply
+	{"-", '-'},			// minus
+	{"\\)", ')'},		// right parenthese
+	{"\\(", '('},		// left parenthese
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
 };
 
+// return the len of rule
 #define NR_REGEX ARRLEN(rules)
 
 static regex_t re[NR_REGEX] = {};
@@ -48,6 +55,7 @@ static regex_t re[NR_REGEX] = {};
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
  */
+// compile regex in rules and sort the rules in re. If go wrong then panic
 void init_regex() {
   int i;
   char error_msg[128];
@@ -62,19 +70,24 @@ void init_regex() {
   }
 }
 
+//structure for record type and substr of the recognized token. 
 typedef struct token {
   int type;
   char str[32];
 } Token;
 
+// record the tokens(type, substr) that has been recognized. 
 static Token tokens[32] __attribute__((used)) = {};
+//indecate the number of token that has been recognized. 
 static int nr_token __attribute__((used))  = 0;
 
+//recognized tokens in 'e' and sort in array 'tokens'. 
 static bool make_token(char *e) {
   int position = 0;
   int i;
   regmatch_t pmatch;
 
+  //store the recognized tokens' number. 
   nr_token = 0;
 
   while (e[position] != '\0') {
@@ -102,6 +115,7 @@ static bool make_token(char *e) {
       }
     }
 
+	//if not match
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
@@ -112,7 +126,9 @@ static bool make_token(char *e) {
 }
 
 
+//main function
 word_t expr(char *e, bool *success) {
+	//check whether 'e' match tokens in re(specific token types). 
   if (!make_token(e)) {
     *success = false;
     return 0;
