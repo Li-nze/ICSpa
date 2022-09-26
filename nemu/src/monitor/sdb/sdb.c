@@ -225,7 +225,7 @@ void sdb_mainloop() {
 	printf("%s\n",cmd);
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
-        if (cmd_table[i].handler(args) < 0) { return; }
+        if (cmd_table[i].handler(args) < 0) { printf("Hello\n");return; }
         break;
       }
     }
