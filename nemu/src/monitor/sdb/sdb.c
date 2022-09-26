@@ -196,6 +196,7 @@ void sdb_mainloop() {
   su=(bool *)malloc(sizeof(bool));
   *su=true;
   printf("%d\n", expr(e,su));
+  printf("su: %d\n", *su);
 	}
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
@@ -218,6 +219,7 @@ void sdb_mainloop() {
 #endif
 
     int i;
+	printf("%s\n",cmd);
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
         if (cmd_table[i].handler(args) < 0) { return; }
