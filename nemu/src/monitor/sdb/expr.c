@@ -217,7 +217,7 @@ word_t expr(char *e, bool *success) {
   printf("h\n");
   }
   printf("%s\n",operator[0]);
-  for(char **i=&operator[0];i!=NULL;++i){
+  for(char **i=&operator[0];*i!=NULL;++i){
 	  printf("%s ",*i);
   }
 
