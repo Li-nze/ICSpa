@@ -153,9 +153,35 @@ static bool make_token(char *e) {
 }
 
 
-//int eval(Token *p, Token *q){
+bool check_parentheses(Token *p, Token *q){
+	return true;
+}
 
-//}
+
+int eval(Token *p, Token *q, bool *success){
+	if(p>q){//bad expression
+		*success=false;
+		return -1;
+	}
+	else if(p==q){//single token
+		if(p->type==TK_NUM){//is a number
+		int a;
+	   	sscanf(p->str, "%d", &a);
+		return a;
+		}
+		else{//not a number
+			*success=false;
+			return -1;
+		}
+	}
+	else if(check_parentheses(p,q)){//enclosed with parentheses
+		return eval(p+1, q-1, success);
+	}
+//	else{//
+
+//	}
+	return 0;
+}
 
 
 
@@ -177,7 +203,21 @@ word_t expr(char *e, bool *success) {
   */
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
-	printf("%s, %s\n",p->str,q->str);
+  char *operator[nr_token];
+  {Token *a=p;
+	unsigned int i=0;
+	while(a+1!=q){
+		if (a->type!=TK_NUM){
+			operator[i]=a->str;
+			++i;
+		}
+		++a;
+	}
+	operator[i]=NULL;
+  }
+  for(char **i=&operator[0];i!=NULL;++i){
+	  printf("%s ",*i);
+  }
 
 
   return 0;
