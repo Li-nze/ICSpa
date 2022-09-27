@@ -209,6 +209,7 @@ word_t expr(char *e, bool *success) {
 	while(a+1!=q){
 		if (a->type!=TK_NUM){
 			operator[i]=a->str;
+			printf("%s\n",a->str);
 			++i;
 		}
 		++a;
