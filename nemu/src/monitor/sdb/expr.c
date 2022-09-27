@@ -207,6 +207,7 @@ word_t expr(char *e, bool *success) {
   {Token *a=p;
 	unsigned int i=0;
 	while(a+1!=q){
+		printf("%s\n",a->str);
 		if (a->type!=TK_NUM){
 			operator[i]=a->str;
 			printf("%s\n",a->str);
