@@ -204,8 +204,8 @@ word_t expr(char *e, bool *success) {
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
   char *operator[nr_token];
-  {Token *a=p;
 	unsigned int i=0;
+  {Token *a=p;
 	while(a-1!=q){
 		if (a->type!=TK_NUM){
 			operator[i]=a->str;
@@ -216,10 +216,11 @@ word_t expr(char *e, bool *success) {
 	operator[i]=NULL;
 	printf("%d %s\n",i,operator[i-1]);
   }
-  for(char **i=&operator[0];*i!=NULL;++i){
-	  printf("%s ",*i);
-  }
-
+	unsigned int a=0;
+	while(a<i){
+		printf("%s ",operator[a]);
+		++a;
+	}
 
   return 0;
 }
