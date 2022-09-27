@@ -207,16 +207,14 @@ word_t expr(char *e, bool *success) {
   {Token *a=p;
 	unsigned int i=0;
 	while(a-1!=q){
-		printf("%s\n",a->str);
 		if (a->type!=TK_NUM){
 			operator[i]=a->str;
-			printf("%s\n",a->str);
 			++i;
 		}
 		++a;
 	}
 	operator[i]=NULL;
-  printf("h\n");
+	printf("%d %s\n",i,operator[i-1]);
   }
   for(char **i=&operator[0];*i!=NULL;++i){
 	  printf("%s ",*i);
