@@ -153,6 +153,25 @@ static bool make_token(char *e) {
 }
 
 
+Token *find_operator(Token *p, Token *q){
+	Token *operator[q-p+1];
+	Token *a=p;
+	unsigned int len=0;
+	while(a-1!=q){
+		if(a->type!=TK_NUM){
+			operator[len]=a;
+			++len;
+		}
+		++a;
+	}
+	operator[len]=NULL;
+	for(int i=0;i<len;++i){
+		printf("%s ", operator[i]->str);
+	}
+	return a;
+}
+
+
 bool check_parentheses(Token *p, Token *q){
 	if(p->str[0]=='(' && q->str[0]==')'){
 		int b=0;
@@ -224,19 +243,9 @@ word_t expr(char *e, bool *success) {
   */
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
-  printf("paren: %d\n", check_parentheses(p,q));
+  //printf("paren: %d\n", check_parentheses(p,q));
+  find_operator(p,q);
   /*
-  char *operator[nr_token];
-  {Token *a=p;
-	unsigned int i=0;
-	while(a-1!=q){
-		if (a->type!=TK_NUM){
-			operator[i]=a->str;
-			++i;
-		}
-		++a;
-	}
-	operator[i]=NULL;
   }
   */
 
