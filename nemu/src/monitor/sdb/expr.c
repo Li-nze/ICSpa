@@ -166,7 +166,12 @@ bool check_parentheses(Token *p, Token *q){
 						  break;
 			}
 		}
-		return true;
+		if(b!=0){
+			return false;
+		}
+		else{
+			return true;
+		}
 	}
 	else{
 		return false;
