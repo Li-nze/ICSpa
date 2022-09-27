@@ -153,6 +153,12 @@ static bool make_token(char *e) {
 }
 
 
+//int eval(Token *p, Token *q){
+
+//}
+
+
+
 //main function
 word_t expr(char *e, bool *success) {
 	//check whether 'e' match tokens in re(specific token types). 
@@ -162,10 +168,17 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
+	
+  /* to test the str tokens
   for(int i=0;i<nr_token;++i){
 	  printf("%s ",tokens[i].str);
   }
   printf("\n");
+  */
+  Token *p=&tokens[0];
+  Token *q=&tokens[nr_token-1];
+	printf("%s, %s\n",p->str,q->str);
+
 
   return 0;
 }
