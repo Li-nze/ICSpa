@@ -201,14 +201,11 @@ word_t expr(char *e, bool *success) {
   }
   printf("\n");
   */
-  printf("h\n");
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
   char *operator[nr_token];
-  printf("h\n");
   {Token *a=p;
 	unsigned int i=0;
-  printf("h\n");
 	while(a+1!=q){
 		if (a->type!=TK_NUM){
 			operator[i]=a->str;
