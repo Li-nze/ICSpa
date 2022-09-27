@@ -154,7 +154,20 @@ static bool make_token(char *e) {
 
 
 bool check_parentheses(Token *p, Token *q){
-	return true;
+	if(p->str[0]=='(' && q->str[0]==')'){
+		int b=0;
+		for(Token *i=p+1;i!=q;++i){
+			switch(i->str[0]){
+				case '(':++b;
+				case ')': if(b==0){return false;}
+						  else{--b;}
+			}
+		}
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 
@@ -203,9 +216,11 @@ word_t expr(char *e, bool *success) {
   */
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
+  printf("pa: %d\n", check_parentheses(p,q));
+  /*
   char *operator[nr_token];
-	unsigned int i=0;
   {Token *a=p;
+	unsigned int i=0;
 	while(a-1!=q){
 		if (a->type!=TK_NUM){
 			operator[i]=a->str;
@@ -214,8 +229,8 @@ word_t expr(char *e, bool *success) {
 		++a;
 	}
 	operator[i]=NULL;
-	printf("%d %s\n",i,operator[i-1]);
   }
+  */
 
   return 0;
 }
