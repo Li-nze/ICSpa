@@ -157,6 +157,7 @@ bool check_parentheses(Token *p, Token *q){
 	if(p->str[0]=='(' && q->str[0]==')'){
 		int b=0;
 		for(Token *i=p+1;i!=q;++i){
+			printf("i: %s\n",i->str);
 			switch(i->str[0]){
 				case '(':++b;
 				case ')': if(b==0){return false;}
@@ -216,7 +217,7 @@ word_t expr(char *e, bool *success) {
   */
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
-  printf("pa: %d\n", check_parentheses(p,q));
+  printf("paren: %d\n", check_parentheses(p,q));
   /*
   char *operator[nr_token];
   {Token *a=p;
