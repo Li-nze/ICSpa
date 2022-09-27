@@ -201,6 +201,7 @@ word_t expr(char *e, bool *success) {
   }
   printf("\n");
   */
+  printf("h\n");
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
   char *operator[nr_token];
