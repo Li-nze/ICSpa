@@ -216,12 +216,6 @@ word_t expr(char *e, bool *success) {
 	operator[i]=NULL;
 	printf("%d %s\n",i,operator[i-1]);
   }
-	unsigned int a=0;
-	while(a<i){
-		printf("%s ",operator[a]);
-		printf("%u ",a);
-		++a;
-	}
 
   return 0;
 }
