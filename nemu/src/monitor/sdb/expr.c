@@ -168,6 +168,7 @@ Token *find_operator(Token *p, Token *q){
 	for(int i=0;i<len;++i){
 		printf("%s ", operator[i]->str);
 	}
+	printf("\n");
 	return a;
 }
 
