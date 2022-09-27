@@ -160,8 +160,10 @@ bool check_parentheses(Token *p, Token *q){
 			printf("i: %s\n",i->str);
 			switch(i->str[0]){
 				case '(':++b;
+						 break;
 				case ')': if(b==0){return false;}
 						  else{--b;}
+						  break;
 			}
 		}
 		return true;
