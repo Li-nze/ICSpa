@@ -195,8 +195,9 @@ static Token *find_operator(Token *p, Token *q){
 	}
 	operator[len]=NULL;
 	//test extract the correct operators. 
+	printf("find_operator: ");
 	for(int i=0;i<len;++i){
-		printf("find_ operator: %s ", operator[i]->str);
+		printf("%s ", operator[i]->str);
 	}
 	printf("\n");
 	//	
@@ -205,8 +206,9 @@ static Token *find_operator(Token *p, Token *q){
 	int c=0;
 	unsigned int count=0;
 	Token *d=NULL;
+	printf("find_ count:\n");
 	for(;b!=a-1;--b){
-		printf("find_ count: %u\n", count);
+		printf("%u\n", count);
 		++count;
 		switch(b->str[0]){
 			case '(': --c;
