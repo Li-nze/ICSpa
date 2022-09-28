@@ -196,13 +196,13 @@ static Token **extract_operator(Token *p, Token *q){
 		++a;
 	}
 	operator[len]=NULL;
+	Token **c=&operator[0];
 	//test extract the correct operators. 
 	printf("extract operators: ");
 	for(int i=0;i<len;++i){
-		printf("%s ", operator[i]->str);
+		printf("%s ", c[i]->str);
 	}
 	printf("\n");
-	Token **c=&operator[0];
 	return c;
 }
 
