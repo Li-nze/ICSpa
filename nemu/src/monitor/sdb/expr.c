@@ -230,12 +230,12 @@ static Token *find_operator(Token *p, Token *q){
 			case ')': ++c;
 					  break;
 		   	case '+': case '-'://not in (), immediately return + or -
-					  if(c==0){printf("find_: %s\n",b->str);return b;}
+					  if(c==0){return b;}
 			case '*': case '/':
 					  if(c==0 && d==NULL){d=b;}//not in () and is the first * or /
 		}
 	}
-	if(d!=NULL){printf("find_: %s\n",d->str);return d;}//no + or - outside (), return the first * or /
+	if(d!=NULL){return d;}//no + or - outside (), return the first * or /
 	else{bool find_first_operator_error=false; assert(find_first_operator_error); return NULL; }
 }
 
@@ -291,7 +291,7 @@ word_t expr(char *e, bool *success) {
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
   //printf("if paren: %d\n", check_parentheses(p,q));
-  printf("find_: %s\n",find_operator(p,q)->str);
+  //printf("find_: %s\n",find_operator(p,q)->str);
 
   return eval(p, q, success);
 }
