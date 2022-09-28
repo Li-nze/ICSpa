@@ -271,8 +271,8 @@ word_t expr(char *e, bool *success) {
   */
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
-  //printf("paren: %d\n", check_parentheses(p,q));
-  find_operator(p,q);
+  printf("paren: %d\n", check_parentheses(p,q));
+  printf("find_: %s\n",find_operator(p,q)->str);
   /*
   }
   */
