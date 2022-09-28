@@ -43,12 +43,31 @@ static struct rule {
 	{"\\*", '*'},		// multiply
 	{"-", '-'},			// minus
 	{"\\)", ')'},		// right parenthese:q
-						//
 	{"\\(", '('},		// left parenthese
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
 };
+
+__attribute__((unused))static word_t add(word_t a, word_t b){return (a)+(b);}
+__attribute__((unused))static word_t minus(word_t a, word_t b){return (a)-(b);}
+__attribute__((unused))static word_t multiply(word_t a, word_t b){return (a)*(b);}
+__attribute__((unused))static word_t divide(word_t a, word_t b){return (a)/(b);}
+
+
+word_t (*operate(int type))(word_t, word_t){ 
+	switch(type){
+				case '+': return add;
+						  break;
+				case '-': return minus;
+						  break;
+				case '*': return multiply;
+						  break;
+				case '/': return divide;
+						  break;
+				default:  assert(0);
+	}
+}
 
 // return the len of rule
 #define NR_REGEX ARRLEN(rules)
@@ -137,14 +156,12 @@ static bool make_token(char *e) {
         break;
       }
     }
-
 	//if not match
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
     }
   }
-
   return true;
 }
 
@@ -216,31 +233,34 @@ static Token *find_operator(Token *p, Token *q){
 }
 
 
-__attribute__((unused))static int eval(Token *p, Token *q, bool *success){
+__attribute__((unused))static word_t eval(Token *p, Token *q, bool *success){
 	if(p>q){//bad expression
+		bool bad_expression=false;
 		*success=false;
+		assert(bad_expression);
 		return -1;
 	}
 	else if(p==q){//single token
 		if(p->type==TK_NUM){//is a number
-		int a;
-	   	sscanf(p->str, "%d", &a);
+		word_t a;
+	   	sscanf(p->str, "%u", &a);
 		return a;
 		}
 		else{//not a number
+			bool single_not_a_number=false;
 			*success=false;
+			assert(single_not_a_number);
 			return -1;
 		}
 	}
 	else if(check_parentheses(p,q)){//enclosed with parentheses
 		return eval(p+1, q-1, success);
 	}
-/*	else{
+	else{
 		Token *node=find_operator(p,q);
-		
-		return eval(p,node-1) operator eval(node+1,q);
-	}*/
-	return 0;
+		word_t (*oper)(word_t, word_t)=operate(node->type);
+		return oper(eval(p, node-1, success), eval(node+1, q, success));
+	}
 }
 
 
