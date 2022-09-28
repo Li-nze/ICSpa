@@ -235,7 +235,7 @@ static Token *find_operator(Token *p, Token *q){
 					  if(c==0 && d==NULL){d=b;}//not in () and is the first * or /
 		}
 	}
-	if(d!=NULL){return d;}//no + or - outside (), return the first * or /
+	if(d!=NULL){printf("find_: %s\n",d->str);return d;}//no + or - outside (), return the first * or /
 	else{bool find_first_operator_error=false; assert(find_first_operator_error); return NULL; }
 }
 
