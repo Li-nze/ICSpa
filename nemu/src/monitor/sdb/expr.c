@@ -209,6 +209,8 @@ static Token *find_operator(Token *p, Token *q){
 	}
 	operator[len]=NULL;
 
+	a=operator[0];
+	b=operator[len-1];
 	if(check_parentheses(a,b)){++a;--b;}
 	int c=0;
 	unsigned int count=0;
