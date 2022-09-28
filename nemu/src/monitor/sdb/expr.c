@@ -176,7 +176,7 @@ static bool check_parentheses(Token *p, Token *q){
 		int b=0;
 		bool parentheses_not_pair=false;
 		for(Token *i=p+1;i!=q;++i){
-			printf("check_par i: %s\n",i->str);
+			//printf("check_par i: %s\n",i->str);
 			switch(i->str[0]){
 				case '(':++b;
 						 break;
