@@ -277,12 +277,12 @@ word_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
 	
-  /* to test the str tokens
+  // to test the str tokens
   for(int i=0;i<nr_token;++i){
 	  printf("%s ",tokens[i].str);
   }
   printf("\n");
-  */
+  //
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
   //printf("if paren: %d\n", check_parentheses(p,q));
