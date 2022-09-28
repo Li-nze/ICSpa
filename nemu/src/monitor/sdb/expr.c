@@ -217,7 +217,7 @@ static Token *find_operator(Token *p, Token *q){
 		}
 	}
 	if(d!=NULL){return d;}//no + or - outside (), return the first * or /
-	else{bool find_first_operator_error=false; assert(find_first_operator_error);}
+	else{bool find_first_operator_error=false; assert(find_first_operator_error); return NULL; }
 }
 
 
@@ -255,7 +255,6 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  assert(0);
 
   /* TODO: Insert codes to evaluate the expression. */
 	
@@ -272,6 +271,7 @@ word_t expr(char *e, bool *success) {
   /*
   }
   */
+  assert(0);
 
   return 0;
 }
