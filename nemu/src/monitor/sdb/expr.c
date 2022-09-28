@@ -157,7 +157,7 @@ static bool check_parentheses(Token *p, Token *q){
 	if(p->str[0]=='(' && q->str[0]==')'){
 		int b=0;
 		for(Token *i=p+1;i!=q;++i){
-			printf("i: %s\n",i->str);
+			printf("check_par i: %s\n",i->str);
 			switch(i->str[0]){
 				case '(':++b;
 						 break;
@@ -196,15 +196,18 @@ static Token *find_operator(Token *p, Token *q){
 	operator[len]=NULL;
 	//test extract the correct operators. 
 	for(int i=0;i<len;++i){
-		printf("%s ", operator[i]->str);
+		printf("find_ operator: %s ", operator[i]->str);
 	}
 	printf("\n");
 	//	
 	a=p;
 	if(check_parentheses(a,b)){++a;--b;}
 	int c=0;
+	unsigned int count=0;
 	Token *d=NULL;
 	for(;b!=a-1;--b){
+		printf("find_ count: %u\n", count);
+		++count;
 		switch(b->str[0]){
 			case '(': --c;
 					  break;
