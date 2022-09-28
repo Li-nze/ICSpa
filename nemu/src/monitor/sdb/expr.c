@@ -218,12 +218,12 @@ static Token *find_operator(Token *p, Token *q){
 	b=operator[len-1];
 	if(check_parentheses(a,b)){++a;--b;}
 	int c=0;
-	unsigned int count=0;
+	//unsigned int count=0;
 	Token *d=NULL;
-	printf("find_ count:\n");
+	//printf("find_ count:\n");
 	for(;b!=a-1;--b){
-		printf("%u, %s\n", count, b->str);
-		++count;
+		//printf("%u, %s\n", count, b->str);
+		//++count;
 		switch(b->str[0]){
 			case '(': --c;
 					  break;
