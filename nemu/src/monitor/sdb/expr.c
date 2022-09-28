@@ -182,6 +182,7 @@ static bool check_parentheses(Token *p, Token *q){
 
 
 static Token *find_operator(Token *p, Token *q){
+	//extract the operators
 	Token *operator[q-p+1]__attribute__((unused));
 	Token *a=p;
 	Token *b=q;
@@ -256,16 +257,14 @@ word_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
 	
-  /* to test the str tokens
+  // to test the str tokens
   for(int i=0;i<nr_token;++i){
 	  printf("%s ",tokens[i].str);
   }
   printf("\n");
-  */
+  
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
-  //Token **operators;
-  //operators=extract_operator(p, q);
   printf("if paren: %d\n", check_parentheses(p,q));
   printf("find_: %s\n",find_operator(p,q)->str);
   /*
