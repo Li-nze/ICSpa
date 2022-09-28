@@ -153,27 +153,7 @@ static bool make_token(char *e) {
 }
 
 
-Token *find_operator(Token *p, Token *q){
-	Token *operator[q-p+1];
-	Token *a=p;
-	unsigned int len=0;
-	while(a-1!=q){
-		if(a->type!=TK_NUM){
-			operator[len]=a;
-			++len;
-		}
-		++a;
-	}
-	operator[len]=NULL;
-	for(int i=0;i<len;++i){
-		printf("%s ", operator[i]->str);
-	}
-	printf("\n");
-	return a;
-}
-
-
-bool check_parentheses(Token *p, Token *q){
+static bool check_parentheses(Token *p, Token *q){
 	if(p->str[0]=='(' && q->str[0]==')'){
 		int b=0;
 		for(Token *i=p+1;i!=q;++i){
@@ -187,6 +167,8 @@ bool check_parentheses(Token *p, Token *q){
 			}
 		}
 		if(b!=0){
+			int parentheses_not_pair=0;
+			assert(parentheses_not_pair);
 			return false;
 		}
 		else{
@@ -199,7 +181,47 @@ bool check_parentheses(Token *p, Token *q){
 }
 
 
-int eval(Token *p, Token *q, bool *success){
+static Token *find_operator(Token *p, Token *q){
+	Token *operator[q-p+1]__attribute__((unused));
+	Token *a=p;
+	Token *b=q;
+	unsigned int len=0;
+	while(a-1!=q){
+		if(a->type!=TK_NUM){
+			operator[len]=a;
+			++len;
+		}
+		++a;
+	}
+	operator[len]=NULL;
+	//test extract the correct operators. 
+	for(int i=0;i<len;++i){
+		printf("%s ", operator[i]->str);
+	}
+	printf("\n");
+	//	
+	a=p;
+	if(check_parentheses(a,b)){++a;--b;}
+	int c=0;
+	Token *d=NULL;
+	for(;b!=a-1;--b){
+		switch(b->str[0]){
+			case '(': --c;
+					  break;
+			case ')': ++c;
+					  break;
+		   	case '+': case '-'://not in (), immediately return + or -
+					  if(c==0){return b;}
+			case '*': case '/':
+					  if(c==0 && d==NULL){d=b;}//not in () and is the first * or /
+		}
+	}
+	if(d!=NULL){return d;}//no + or - outside (), return the first * or /
+	else{bool find_first_operator_error=false; assert(find_first_operator_error);}
+}
+
+
+__attribute__((unused))static int eval(Token *p, Token *q, bool *success){
 	if(p>q){//bad expression
 		*success=false;
 		return -1;
@@ -233,6 +255,7 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
+  assert(0);
 
   /* TODO: Insert codes to evaluate the expression. */
 	
