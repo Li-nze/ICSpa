@@ -37,7 +37,7 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
-
+	//NOTE: Do not forget to add/change the operator functions as well.
 	{"[0-9]+", TK_NUM},	// decimal number
 	{"\\/", '/'},		// divide
 	{"\\*", '*'},		// multiply
@@ -49,12 +49,44 @@ static struct rule {
   {"==", TK_EQ},        // equal
 };
 
+
+// return the len of rule
+#define NR_REGEX ARRLEN(rules)
+
+//sort the regex rule compiled by regcomp.
+static regex_t re[NR_REGEX] = {};
+
+
+
+
+//structure for record type and substr of the recognized token. 
+typedef struct token {
+  int type;
+  char str[32];
+} Token;
+
+//hlz add
+static unsigned int maxstrlen=32;
+
+// record the tokens(type, substr) that has been recognized. 
+static Token tokens[32] __attribute__((used)) = {};
+
+//indecate the number of token that has been recognized. 
+static int nr_token __attribute__((used))  = 0;
+
+
+//##################################################################################################################################
+
+
+//operator functions
 __attribute__((unused))static word_t add(word_t a, word_t b){return (a)+(b);}
 __attribute__((unused))static word_t minus(word_t a, word_t b){return (a)-(b);}
 __attribute__((unused))static word_t multiply(word_t a, word_t b){return (a)*(b);}
 __attribute__((unused))static word_t divide(word_t a, word_t b){return (a)/(b);}
 
 
+
+//return the operator functions accrodingly.
 word_t (*operate(int type))(word_t, word_t){ 
 	switch(type){
 				case '+': return add;
@@ -69,10 +101,7 @@ word_t (*operate(int type))(word_t, word_t){
 	}
 }
 
-// return the len of rule
-#define NR_REGEX ARRLEN(rules)
 
-static regex_t re[NR_REGEX] = {};
 
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
@@ -92,18 +121,7 @@ void init_regex() {
   }
 }
 
-//structure for record type and substr of the recognized token. 
-typedef struct token {
-  int type;
-  char str[32];
-} Token;
-//hlz add
-static unsigned int maxstrlen=32;
 
-// record the tokens(type, substr) that has been recognized. 
-static Token tokens[32] __attribute__((used)) = {};
-//indecate the number of token that has been recognized. 
-static int nr_token __attribute__((used))  = 0;
 
 //recognized tokens in 'e' and sort in array 'tokens'. 
 static bool make_token(char *e) {
@@ -240,7 +258,7 @@ static Token *find_operator(Token *p, Token *q){
 }
 
 
-__attribute__((unused))static word_t eval(Token *p, Token *q, bool *success){
+static word_t eval(Token *p, Token *q, bool *success){
 	if(p>q){//bad expression
 		bool bad_expression=false;
 		*success=false;

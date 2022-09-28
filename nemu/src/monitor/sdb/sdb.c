@@ -190,7 +190,7 @@ void sdb_mainloop() {
     return;
   }
 
-  {//hlzt
+  {//hlzt to test expr function
   char* e=readline("expr: ");
   while(strcmp(e,"qw")!=0){
 	bool *su;
