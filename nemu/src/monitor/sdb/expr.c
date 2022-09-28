@@ -157,9 +157,7 @@ static bool make_token(char *e) {
 			strncpy(tokens[nr_token].str,substr_start,maxstrlen);
 			tokens[nr_token].str[substr_len]=0;
 			++nr_token;
-
 		}
-		
         break;
       }
     }
@@ -232,7 +230,7 @@ static Token *find_operator(Token *p, Token *q){
 			case ')': ++c;
 					  break;
 		   	case '+': case '-'://not in (), immediately return + or -
-					  if(c==0){return b;}
+					  if(c==0){printf("find_: %s\n",b->str);return b;}
 			case '*': case '/':
 					  if(c==0 && d==NULL){d=b;}//not in () and is the first * or /
 		}
