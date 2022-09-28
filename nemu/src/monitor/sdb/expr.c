@@ -132,7 +132,10 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
+		bool record=true;
         switch (rules[i].token_type) {
+			case TK_NOTYPE: record=false;
+							break;
 			case TK_NUM: tokens[nr_token].type=TK_NUM;
 						 break;
 			case '/': tokens[nr_token].type='/';
@@ -150,10 +153,13 @@ static bool make_token(char *e) {
 			case TK_EQ: tokens[nr_token].type=TK_EQ;
 					  break;
         }
-		strncpy(tokens[nr_token].str,substr_start,maxstrlen);
-		tokens[nr_token].str[substr_len]=0;
-		++nr_token;
+		if(record){
+			strncpy(tokens[nr_token].str,substr_start,maxstrlen);
+			tokens[nr_token].str[substr_len]=0;
+			++nr_token;
 
+		}
+		
         break;
       }
     }
