@@ -153,6 +153,9 @@ static bool make_token(char *e) {
 }
 
 
+//static Token
+
+
 static bool check_parentheses(Token *p, Token *q){
 	if(p->str[0]=='(' && q->str[0]==')'){
 		int b=0;
@@ -208,7 +211,7 @@ static Token *find_operator(Token *p, Token *q){
 	Token *d=NULL;
 	printf("find_ count:\n");
 	for(;b!=a-1;--b){
-		printf("%u\n", count);
+		printf("%u, %s\n", count, b->str);
 		++count;
 		switch(b->str[0]){
 			case '(': --c;
@@ -271,7 +274,7 @@ word_t expr(char *e, bool *success) {
   */
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
-  printf("paren: %d\n", check_parentheses(p,q));
+  printf("if paren: %d\n", check_parentheses(p,q));
   printf("find_: %s\n",find_operator(p,q)->str);
   /*
   }
