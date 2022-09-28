@@ -78,6 +78,8 @@ typedef struct token {
   int type;
   char str[32];
 } Token;
+//hlz add
+static unsigned int maxstrlen=32;
 
 // record the tokens(type, substr) that has been recognized. 
 static Token tokens[32] __attribute__((used)) = {};
@@ -112,30 +114,24 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
 			case TK_NUM: tokens[nr_token].type=TK_NUM;
-						 strcpy(tokens[nr_token].str,substr_start);
-						 tokens[nr_token].str[substr_len]=0;break;
+						 break;
 			case '/': tokens[nr_token].type='/';
-					  strcpy(tokens[nr_token].str,substr_start);
-					  tokens[nr_token].str[substr_len]=0;break;
+					  break;
 			case '*': tokens[nr_token].type='*';
-					  strcpy(tokens[nr_token].str,substr_start);
-					  tokens[nr_token].str[substr_len]=0;break;
+					  break;
 			case '-': tokens[nr_token].type='-';
-					  strcpy(tokens[nr_token].str,substr_start);
-					  tokens[nr_token].str[substr_len]=0;break;
+					  break;
 			case ')': tokens[nr_token].type=')';
-					  strcpy(tokens[nr_token].str,substr_start);
-					  tokens[nr_token].str[substr_len]=0;break;
+					  break;
 			case '(': tokens[nr_token].type='(';
-					  strcpy(tokens[nr_token].str,substr_start);
-					  tokens[nr_token].str[substr_len]=0;break;
+					  break;
 			case '+': tokens[nr_token].type='+';
-					  strcpy(tokens[nr_token].str,substr_start);
-					  tokens[nr_token].str[substr_len]=0;break;
+					  break;
 			case TK_EQ: tokens[nr_token].type=TK_EQ;
-						strcpy(tokens[nr_token].str,substr_start);
-					tokens[nr_token].str[substr_len]=0;break;
+					  break;
         }
+		strncpy(tokens[nr_token].str,substr_start,maxstrlen);
+		tokens[nr_token].str[substr_len]=0;
 		++nr_token;
 
         break;
@@ -239,9 +235,11 @@ __attribute__((unused))static int eval(Token *p, Token *q, bool *success){
 	else if(check_parentheses(p,q)){//enclosed with parentheses
 		return eval(p+1, q-1, success);
 	}
-//	else{//
-
-//	}
+/*	else{
+		Token *node=find_operator(p,q);
+		
+		return eval(p,node-1) operator eval(node+1,q);
+	}*/
 	return 0;
 }
 
