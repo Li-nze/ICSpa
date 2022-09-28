@@ -153,9 +153,6 @@ static bool make_token(char *e) {
 }
 
 
-//static Token
-
-
 static bool check_parentheses(Token *p, Token *q){
 	if(p->str[0]=='(' && q->str[0]==')'){
 		int b=0;
@@ -184,31 +181,7 @@ static bool check_parentheses(Token *p, Token *q){
 }
 
 
-static Token **extract_operator(Token *p, Token *q){
-	Token *operator[q-p+1];
-	Token *a=p;
-	unsigned int len=0;
-	while(a-1!=q){
-		if(a->type!=TK_NUM){
-			operator[len]=a;
-			++len;
-		}
-		++a;
-	}
-	operator[len]=NULL;
-	Token **c=&operator[0];
-	//test extract the correct operators. 
-	printf("extract operators: ");
-	for(int i=0;i<len;++i){
-		printf("%s ", c[i]->str);
-	}
-	printf("\n");
-	return c;
-}
-
-
 static Token *find_operator(Token *p, Token *q){
-	/*
 	Token *operator[q-p+1]__attribute__((unused));
 	Token *a=p;
 	Token *b=q;
@@ -221,13 +194,7 @@ static Token *find_operator(Token *p, Token *q){
 		++a;
 	}
 	operator[len]=NULL;
-	*/
-	Token **operators=extract_operator(p,q);
-	Token *a=operators[0];
-	Token *b=a;
-	for(int i=0;operators[i+1]!=NULL;++i){b=operators[i];}
-	printf("test extract ab:\n");
-	for(Token *i=a;i-1!=b;++i){printf("%s ",i->str);}
+
 	if(check_parentheses(a,b)){++a;--b;}
 	int c=0;
 	unsigned int count=0;
