@@ -196,7 +196,7 @@ void sdb_mainloop() {
 	bool *su;
 	su=(bool *)malloc(sizeof(bool));
 	*su=true;
-	printf("sdb_main expr output:%d\n", expr(e,su));
+	printf("sdb_main expr output:%u\n", expr(e,su));
 	printf("su: %d\n", *su);
 	e=readline("expr: ");	
   }
