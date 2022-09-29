@@ -202,26 +202,29 @@ static bool make_token(char *e) {
 	  }
   }
 
-  printf("hh\n");
   int p=0;
   while(p<nr_token){
 	  if(tokens[p].type==TK_NEGATIVE){
-		  if(tokens[p+1].type==TK_NEGATIVE){
-			  delne(p);delne(p);
+		  delne(p);
+		  if(tokens[p].type==TK_NEGATIVE){
+			  delne(p);
 		  }
-		  else if(tokens[p+1].type!=TK_NUM){
+		  else if(tokens[p].type!=TK_NUM){
 			  bool negative_not_before_num_ne=false;
 			  assert(negative_not_before_num_ne);
 			  return false;
 		  }
 		  else{
-			  delne(p);
 			  word_t a;
 			  sscanf(tokens[p].str, "%u", &a);
 			  printf("ne2pou %u\n", a);
 			  sprintf(tokens[p].str, "%u", (word_t)(-1)-a+1);
 			  printf("ne2po: %s\n", tokens[p].str);
+			  ++p;
 		  }
+	  }
+	  else{
+		  ++p;
 	  }
   }
   return true;
