@@ -202,6 +202,7 @@ static bool make_token(char *e) {
 	  }
   }
 
+  //tackle the negative operator by module operation. 
   int p=0;
   while(p<nr_token){
 	  if(tokens[p].type==TK_NEGATIVE){
@@ -217,9 +218,7 @@ static bool make_token(char *e) {
 		  else{
 			  word_t a;
 			  sscanf(tokens[p].str, "%u", &a);
-			  printf("ne2pou %u\n", a);
 			  sprintf(tokens[p].str, "%u", (word_t)(-1)-a+1);
-			  printf("ne2po: %s\n", tokens[p].str);
 			  ++p;
 		  }
 	  }
