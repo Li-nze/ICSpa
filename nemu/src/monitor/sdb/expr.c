@@ -23,7 +23,7 @@
 #include <string.h>
 
 enum {
-  TK_NUM=0, TK_NOTYPE = 256, TK_EQ,
+  TK_NUM=0, TK_NEGATIVE=1,TK_NOTYPE = 256, TK_EQ,
 
   /* TODO: Add more token types */
 
@@ -55,8 +55,6 @@ static struct rule {
 
 //sort the regex rule compiled by regcomp.
 static regex_t re[NR_REGEX] = {};
-
-
 
 
 //structure for record type and substr of the recognized token. 
@@ -138,7 +136,7 @@ static bool make_token(char *e) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
-		printf("substrlen: %d\n", substr_len);
+		//printf("substrlen: %d\n", substr_len);
 
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
@@ -160,7 +158,8 @@ static bool make_token(char *e) {
 					  break;
 			case '*': tokens[nr_token].type='*';
 					  break;
-			case '-': tokens[nr_token].type='-';
+			case '-': if(tokens[nr_token-1].type!=TK_NUM){tokens[nr_token].type=TK_NEGATIVE;}
+					  else{tokens[nr_token].type='-';}
 					  break;
 			case ')': tokens[nr_token].type=')';
 					  break;
@@ -224,7 +223,7 @@ static Token *find_operator(Token *p, Token *q){
 	Token *b=q;
 	unsigned int len=0;
 	while(a-1!=q){
-		if(a->type!=TK_NUM){
+		if(a->type!=TK_NUM && a->type!=TK_NEGATIVE){
 			operator[len]=a;
 			++len;
 		}
@@ -288,7 +287,29 @@ static word_t eval(Token *p, Token *q, bool *success){
 	}
 }
 
+/*
+static void modify_negtive(Token *p, Token *q){
+	//extract the operators
+	Token *operator[q-p+1]__attribute__((unused));
+	Token *a=p;
+	int npar=0;
+	unsigned int len=0;
+	while(a-1!=q){
+		if(a->type==')'){++npar;}
+		else if(a->type=='('){--npar;}
+		else if()
+		if(a->type!=TK_NUM){
+			operator[len]=a;
+			++len;
+		}
+		++a;
+	}
+	operator[len]=NULL;
 
+	a=operator[0];
+	Token *b=operator[len-1];
+}
+*/
 
 //main function
 word_t expr(char *e, bool *success) {
@@ -309,7 +330,7 @@ word_t expr(char *e, bool *success) {
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
   //printf("if paren: %d\n", check_parentheses(p,q));
-  //printf("find_: %s\n",find_operator(p,q)->str);
+  printf("find_: %s\n",find_operator(p,q)->str);
 
   return eval(p, q, success);
 }
