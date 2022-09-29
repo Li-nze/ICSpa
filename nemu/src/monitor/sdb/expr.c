@@ -273,7 +273,6 @@ static Token *find_operator(Token *p, Token *q){
 	}
 	//no operator in tokens. 
 	if(len==0){return NULL;}
-	printf("len:%u\n", len);
 
 	operator[len]=NULL;
 	//for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
@@ -334,29 +333,6 @@ static word_t eval(Token *p, Token *q, bool *success){
 	}
 }
 
-/*
-static void modify_negtive(Token *p, Token *q){
-	//extract the operators
-	Token *operator[q-p+1]__attribute__((unused));
-	Token *a=p;
-	int npar=0;
-	unsigned int len=0;
-	while(a-1!=q){
-		if(a->type==')'){++npar;}
-		else if(a->type=='('){--npar;}
-		else if()
-		if(a->type!=TK_NUM){
-			operator[len]=a;
-			++len;
-		}
-		++a;
-	}
-	operator[len]=NULL;
-
-	a=operator[0];
-	Token *b=operator[len-1];
-}
-*/
 
 //main function
 word_t expr(char *e, bool *success) {
@@ -378,6 +354,7 @@ word_t expr(char *e, bool *success) {
   Token *q=&tokens[nr_token-1];
   //printf("if paren: %d\n", check_parentheses(p,q));
   printf("find_: %s\n",find_operator(p,q)->str);
+  printf("hh\n");
 
   return eval(p, q, success);
 }
