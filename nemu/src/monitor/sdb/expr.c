@@ -272,8 +272,8 @@ static Token *find_operator(Token *p, Token *q){
 		++a;
 	}
 	//no operator in tokens. 
-	printf("len:%u\n", len);
 	if(len==0){return NULL;}
+	printf("len:%u\n", len);
 
 	operator[len]=NULL;
 	//for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
