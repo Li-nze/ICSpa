@@ -271,10 +271,14 @@ static Token *find_operator(Token *p, Token *q){
 		}
 		++a;
 	}
+	//no operator in tokens. 
+	//if(len==0){return NULL;}
+
 	operator[len]=NULL;
 	//for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
 
 	a=operator[0];
+	printf("linze\n");
 	b=operator[len-1];
 	if(check_parentheses(a,b)){++a;--b;}
 	int c=0;
@@ -372,7 +376,7 @@ word_t expr(char *e, bool *success) {
   //
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
-  printf("if paren: %d\n", check_parentheses(p,q));
+  //printf("if paren: %d\n", check_parentheses(p,q));
   printf("find_: %s\n",find_operator(p,q)->str);
 
   return eval(p, q, success);
