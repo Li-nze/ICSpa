@@ -278,8 +278,8 @@ static Token *find_operator(Token *p, Token *q){
 	//for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
 
 	a=operator[0];
-	printf("linze\n");
 	b=operator[len-1];
+	printf("linze\n");
 	if(check_parentheses(a,b)){++a;--b;}
 	int c=0;
 	//unsigned int count=0;
