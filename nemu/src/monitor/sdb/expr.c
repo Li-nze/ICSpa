@@ -202,6 +202,7 @@ static bool make_token(char *e) {
 	  }
   }
 
+  printf("hh\n");
   int p=0;
   while(p<nr_token){
 	  if(tokens[p].type==TK_NEGATIVE){
