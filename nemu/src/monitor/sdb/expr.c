@@ -242,7 +242,7 @@ static Token *find_operator(Token *p, Token *q){
 	for(;b!=a-1;--b){
 		//printf("%u, %s\n", count, b->str);
 		//++count;
-		switch(b->str[0]){
+		switch(b->type){
 			case '(': --c;
 					  break;
 			case ')': ++c;
