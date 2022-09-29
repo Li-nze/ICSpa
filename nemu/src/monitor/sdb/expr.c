@@ -158,7 +158,7 @@ static bool make_token(char *e) {
 					  break;
 			case '*': tokens[nr_token].type='*';
 					  break;
-			case '-': if(tokens[nr_token-1].type!=TK_NUM){tokens[nr_token].type=TK_NEGATIVE;}
+			case '-': if(nr_token==0 || tokens[nr_token-1].type!=TK_NUM){tokens[nr_token].type=TK_NEGATIVE;}
 					  else{tokens[nr_token].type='-';}
 					  break;
 			case ')': tokens[nr_token].type=')';
@@ -184,17 +184,56 @@ static bool make_token(char *e) {
       return false;
     }
   }
+  
+  //delete the a th element(type=negative) of tokens[]. 
+  void delne(int a){
+	  if(tokens[a].type!=TK_NEGATIVE){
+		  bool not_negative_operator=false;
+		  assert(not_negative_operator);
+		  return;
+	  }
+	  else{
+		  while(a<nr_token-1){
+			  tokens[a].type=tokens[a+1].type;
+			  strcpy(tokens[a].str, tokens[a+1].str);
+			  ++a;
+		  }
+		  --nr_token;
+	  }
+  }
+
+  int p=0;
+  while(p<nr_token){
+	  if(tokens[p].type==TK_NEGATIVE){
+		  if(tokens[p+1].type==TK_NEGATIVE){
+			  delne(p);delne(p);
+		  }
+		  else if(tokens[p+1].type!=TK_NUM){
+			  bool negative_not_before_num_ne=false;
+			  assert(negative_not_before_num_ne);
+			  return false;
+		  }
+		  else{
+			  delne(p);
+			  word_t a;
+			  sscanf(tokens[p].str, "%u", &a);
+			  printf("ne2pou %u\n", a);
+			  sprintf(tokens[p].str, "%u", (word_t)(-1)-a+1);
+			  printf("ne2po: %s\n", tokens[p].str);
+		  }
+	  }
+  }
   return true;
 }
 
 
 static bool check_parentheses(Token *p, Token *q){
-	if(p->str[0]=='(' && q->str[0]==')'){
+	if(p->type=='(' && q->type==')'){
 		int b=0;
 		bool parentheses_not_pair=false;
 		for(Token *i=p+1;i!=q;++i){
 			//printf("check_par i: %s\n",i->str);
-			switch(i->str[0]){
+			switch(i->type){
 				case '(':++b;
 						 break;
 				case ')': if(b==0){assert(parentheses_not_pair); return false;}
@@ -230,7 +269,7 @@ static Token *find_operator(Token *p, Token *q){
 		++a;
 	}
 	operator[len]=NULL;
-	for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
+	//for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
 
 	a=operator[0];
 	b=operator[len-1];
