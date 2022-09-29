@@ -230,6 +230,7 @@ static Token *find_operator(Token *p, Token *q){
 		++a;
 	}
 	operator[len]=NULL;
+	for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
 
 	a=operator[0];
 	b=operator[len-1];
