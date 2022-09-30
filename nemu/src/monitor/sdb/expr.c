@@ -38,7 +38,8 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 	//NOTE: Do not forget to add/change the operator functions as well.
-	{"0(x|X)[0-9]+", TK_0XNUM}, // hexadecimal number
+	{"0(x|X)[0-9a-f]+", TK_0XNUM}, // hexadecimal number
+	//need to consider the order of 0x and num
 	{"\\$(0|[a-z][0-9]+|[a-z]+)", TK_REG}, // register
 	{"[0-9]+", TK_NUM},	// decimal number
 	{"\\/", '/'},		// divide
