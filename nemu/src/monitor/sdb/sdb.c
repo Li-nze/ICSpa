@@ -240,13 +240,23 @@ void sdb_mainloop() {
 void init_sdb() {
   /* Compile the regular expressions. */
   init_regex();
-  printf("%u\n", hlz());
   /*
   {
   //hlzt
   printf("init_regex() succeeds. \n");
   }
   */
+  //test the expr()
+  FILE *fp=fopen("input", "r");
+  word_t a;
+  int i;
+  char s[214748364];
+  i=fscanf(fp, "%u", &a);
+  i=fscanf(fp, "%s", s);
+  printf("a: %u\n", a);
+  printf("s: %s\n", s);
+  i=fclose(fp);
+  printf("%d", i);
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();
