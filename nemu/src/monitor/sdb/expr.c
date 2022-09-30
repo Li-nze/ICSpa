@@ -219,7 +219,7 @@ static bool make_token(char *e) {
   int p=0;
   while(p<nr_token){
 	  if(tokens[p].type==TK_NEGATIVE){
-		  printf("negative\n");
+		  //printf("negative\n");
 		  delne(p);
 		  if(tokens[p].type==TK_NEGATIVE){
 			  delne(p);

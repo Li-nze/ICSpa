@@ -120,7 +120,7 @@ static int cmd_p(char *args){
 	bool *success=(bool *)malloc(sizeof(bool));
 	*success=true;
 	word_t a=expr(arg, success);
-	if(*success){printf("%u", a);}
+	if(*success){printf("%u\n", a);}
 	else{bool expr_failed=false; assert(expr_failed);}
 	return 0;
 }
