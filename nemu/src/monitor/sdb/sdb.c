@@ -56,7 +56,7 @@ static int cmd_q(char *args) {
 }
 
 
-static int cmd_x(char *args){
+static int cmd_x(char *args){ 
 	char *arg=strtok(NULL, " ");
 	if(arg==NULL){
 		printf("Please enter N to specify the bytes to read. \n");
@@ -114,6 +114,18 @@ static int cmd_si(char *args){
 	return 0;
 }
 
+
+static int cmd_p(char *args){
+	char *arg=strtok(NULL, "\n");
+	bool *success=(bool *)malloc(sizeof(bool));
+	*success=true;
+	word_t a=expr(arg, success);
+	if(*success){printf("%u", a);}
+	else{bool expr_failed=false; assert(expr_failed);}
+	return 0;
+}
+
+
 static int cmd_info(char *args);
 
 static int cmd_help(char *args);
@@ -129,7 +141,7 @@ static struct {
   { "si", "Execute next program line (after stopping); step ? function", cmd_si},
   {"info", "Print the infomation of SUBCMD", cmd_info },
   {"x", "evaluate the EXPR, and print the N 4 btyes from the address of EXPR", cmd_x },
-  //{ "p", "evaluate and print the EXPR", cmd_p },
+  {"p", "evaluate and print the EXPR", cmd_p },
   //{ "w", "halt when the EXPR changes", cmd_w },
   //{ "d", "delete the N watchpoint", cmd_d }
 
