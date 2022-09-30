@@ -240,6 +240,7 @@ void sdb_mainloop() {
 void init_sdb() {
   /* Compile the regular expressions. */
   init_regex();
+  printf("%u\n", hlz());
   /*
   {
   //hlzt

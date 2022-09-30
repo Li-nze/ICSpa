@@ -91,7 +91,9 @@ __attribute__((unused))static word_t divide(word_t a, word_t b){
 	}
 }
 
-
+word_t hlz(){
+	return 1;
+}
 
 
 //return the operator functions accrodingly.
