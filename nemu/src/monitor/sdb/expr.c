@@ -340,6 +340,7 @@ static word_t eval(Token *p, Token *q, bool *success){
 	}
 	else{
 		Token *node=find_operator(p,q);
+		printf("type:%s",(char *)&node->type);
 		word_t (*oper)(word_t, word_t)=operate(node->type);
 		return oper(eval(p, node-1, success), eval(node+1, q, success));
 	}
