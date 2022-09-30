@@ -263,7 +263,7 @@ void init_sdb() {
 	  word_t b=expr(s, success);
 	  if(a!=b){
 		  FILE *fp1=NULL;
-		  fp1=fopen("~/pa1error.txt", "a");
+		  fp1=fopen("/tmp/pa1error.txt", "a");
 		  assert(fp1!=NULL);
 		  fprintf(fp1,"k:%d expr:%u gen:%u %s\n", k, b, a, s );
 		  i=fclose(fp1);
