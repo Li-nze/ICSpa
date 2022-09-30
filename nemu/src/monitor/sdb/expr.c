@@ -373,9 +373,9 @@ word_t expr(char *e, bool *success) {
   //printf("if paren: %d\n", check_parentheses(p,q));
   //Token *a=find_operator(p,q);
   //if(a!=NULL){printf("find_: %s\n",a->str);}
-  bool in_expr_failed=(bool *)malloc(sizeof(bool));
-  in_expr_failed=false;
-  assert(in_expr_failed);
+  //bool in_expr_failed=(bool *)malloc(sizeof(bool));
+  //in_expr_failed=false;
+  //assert(in_expr_failed);
 
   return eval(p, q, success);
 }
