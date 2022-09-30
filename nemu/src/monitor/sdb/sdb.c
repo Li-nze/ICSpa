@@ -190,6 +190,7 @@ void sdb_mainloop() {
     return;
   }
 
+  /*
   {//hlzt to test expr function
   char* e=readline("expr: ");
   while(strcmp(e,"qw")!=0){
@@ -197,10 +198,11 @@ void sdb_mainloop() {
 	su=(bool *)malloc(sizeof(bool));
 	*su=true;
 	printf("sdb_main expr output:%u\n", expr(e,su));
-	printf("su: %d\n", *su);
+	printf("sucess: %d\n", *su);
 	e=readline("expr: ");	
   }
 	}
+	*/
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
 
@@ -223,7 +225,7 @@ void sdb_mainloop() {
 
     int i;
 	// 这句话是原来就有的还是我加的？
-	printf("%s\n",cmd);
+	//printf("%s\n",cmd);
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
         if (cmd_table[i].handler(args) < 0) { return; }
@@ -238,10 +240,12 @@ void sdb_mainloop() {
 void init_sdb() {
   /* Compile the regular expressions. */
   init_regex();
+  /*
   {
   //hlzt
   printf("init_regex() succeeds. \n");
   }
+  */
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();

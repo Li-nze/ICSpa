@@ -80,7 +80,17 @@ static int nr_token __attribute__((used))  = 0;
 __attribute__((unused))static word_t add(word_t a, word_t b){return (a)+(b);}
 __attribute__((unused))static word_t minus(word_t a, word_t b){return (a)-(b);}
 __attribute__((unused))static word_t multiply(word_t a, word_t b){return (a)*(b);}
-__attribute__((unused))static word_t divide(word_t a, word_t b){return (a)/(b);}
+__attribute__((unused))static word_t divide(word_t a, word_t b){
+	if((b)==0){
+		bool divide_by_0=false;
+	   	assert(divide_by_0);
+		return 0;
+	}
+	else{
+		return (a)/(b);
+	}
+}
+
 
 
 
@@ -344,12 +354,12 @@ word_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
 	
-  // to test the str tokens
+  /* to test the str tokens
   for(int i=0;i<nr_token;++i){
 	  printf("%s ",tokens[i].str);
   }
   printf("\n");
-  //
+  */
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
   //printf("if paren: %d\n", check_parentheses(p,q));
