@@ -249,12 +249,13 @@ void init_sdb() {
   //test the expr()
   
   printf("a");
-  /*
+  
   int i;
-  FILE *fp=fopen("input", "r");
+  FILE *fp=NULL;
+  fp=fopen("./input", "r");
   i=fclose(fp);
   printf("%u", i);
-  
+  /*
   if(fp==NULL){printf("a");}
   word_t a;
   char s[214748364];
