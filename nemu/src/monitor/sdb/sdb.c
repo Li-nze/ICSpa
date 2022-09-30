@@ -247,6 +247,7 @@ void init_sdb() {
   }
   */
   //test the expr()
+  /*
   printf("a");
   FILE *fp=fopen("input", "r");
   if(fp==NULL){printf("a");}
@@ -260,6 +261,7 @@ void init_sdb() {
   printf("a: %u\n", a);
   printf("s: %s\n", s);
   i=fclose(fp);
+  */
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();
