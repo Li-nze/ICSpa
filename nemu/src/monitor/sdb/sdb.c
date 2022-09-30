@@ -248,7 +248,7 @@ void init_sdb() {
   */
   //test the expr()
   
-  int i,count,k=0;
+  int i,count=0,k=0;
   bool *success;
   success=(bool *)malloc(sizeof(bool));
   *success=true;
