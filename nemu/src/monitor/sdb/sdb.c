@@ -278,7 +278,7 @@ void init_sdb() {
   bool *success;
   success=(bool *)malloc(sizeof(bool));
   *success=true;
-  printf("%u\n", expr("(22930263-48102903)/11916539", success));
+  printf("%u\n", expr("(22930263-48102903)", success));
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();
