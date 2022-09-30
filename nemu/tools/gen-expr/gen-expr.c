@@ -19,8 +19,10 @@
 #include <time.h>
 #include <assert.h>
 #include <string.h>
+#include <errno.h>
 
 // this should be enough
+static unsigned int max_rand=100000000;
 static long len=0;
 static int max_len=65536;
 static char buf[65536] = {'\0'};
@@ -29,7 +31,7 @@ static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
 "  unsigned result = %s; "
-"  printf(\"%%u\", result); "
+"  printf(\"%%u\", result);"
 "  return 0; "
 "}";
 
@@ -49,7 +51,7 @@ static void gen_operator(){
 }
 
 static void gen_num(){
-	unsigned int a=rand();
+	unsigned int a=choose(max_rand);
 	char s[15];
 	sprintf(s, "%u", a);
 	strncat(buf, s, max_len-len-1); ;
@@ -74,23 +76,26 @@ static void gen_space(){
 static void gen_rand_expr(unsigned * a) {
 	if(len>=max_len-1){*a=0; return;}
 	switch(choose(3)){
-		case 0: gen_space();
+		case 0: //gen_space();
 				gen_num();
-				gen_space();break;
-		case 1:  gen_space();
+				//gen_space();
+				break;
+		case 1:  //gen_space();
 				 gen("(");
-				 gen_space();
+				 //gen_space();
 				 gen_rand_expr(a);
-				 gen_space();
+				 //gen_space();
 			   	 gen(")");
-				 gen_space();  break;
-		default: gen_space();
+				 //gen_space();
+				 break;
+		default: //gen_space();
 				 gen_rand_expr(a);
-				 gen_space();
+				 //gen_space();
 			   	 gen_operator();
-				 gen_space();
+				 //gen_space();
 			   	 gen_rand_expr(a);
-				 gen_space();  break;
+				 //gen_space();
+			   	 break;
 	}
 	return;
 }
@@ -112,9 +117,11 @@ int main(int argc, char *argv[]) {
 	//printf("i: %d\n", i);
     gen_rand_expr(a);
 	if(*a==0){
+		free(a);
 		if(i!=0){--i;}
 		continue;
 	}
+	free(a);
 	
     sprintf(code_buf, code_format, buf);
 
@@ -123,19 +130,26 @@ int main(int argc, char *argv[]) {
     fputs(code_buf, fp);
     fclose(fp);
 
-	//printf("1\n");
-    int ret = system("gcc -w /tmp/.code.c -o /tmp/.expr");
-    if (ret != 0) continue;
+    int ret = system("gcc -Werror /tmp/.code.c -o /tmp/.expr");
+    if (ret != 0){
+		if(i!=0){--i;}
+		continue;
+	}
 
 	//printf("2\n");
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
-	//printf("3\n");
+	//rintf("3\n");
 
     int result;
-    //fscanf(fp, "%d", &result);
-	fscanf(fp, "%u", &result);
+    fscanf(fp, "%d", &result);
     pclose(fp);
+	/*
+	if(result==0){
+		if(i!=0){--i;}
+		continue;
+	}
+	*/
 	//printf("4\n");
 	//printf("i: %d\n", i);
     //printf("res: %u \n buf%s\n", result, buf);
