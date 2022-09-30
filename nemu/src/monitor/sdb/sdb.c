@@ -248,11 +248,9 @@ void init_sdb() {
   */
   //test the expr()
   
-  printf("a");
-  
   int i;
   FILE *fp=NULL;
-  fp=fopen("/tmp/input", "r");
+  fp=fopen("/tmp/inpu", "r");
   assert(fp!=NULL);
   word_t a;
   char s[11111];
