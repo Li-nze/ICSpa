@@ -242,19 +242,20 @@ static bool make_token(char *e) {
 
 static bool check_parentheses(Token *p, Token *q){
 	if(p->type=='(' && q->type==')'){
-		int b=0;
+		int b=1;
 		bool parentheses_not_pair=false;
 		for(Token *i=p+1;i!=q;++i){
 			//printf("check_par i: %s\n",i->str);
 			switch(i->type){
-				case '(':++b;
+				case '(':if(b==0){assert(parentheses_not_pair); return false;}
+						 ++b;
 						 break;
 				case ')': if(b==0){assert(parentheses_not_pair); return false;}
 						  else{--b;}
 						  break;
 			}
 		}
-		if(b!=0){
+		if(b!=1){
 			assert(parentheses_not_pair);
 			return false;
 		}
