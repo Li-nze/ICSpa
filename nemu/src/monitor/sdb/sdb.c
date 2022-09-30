@@ -252,11 +252,12 @@ void init_sdb() {
   int i;
   char s[214748364];
   i=fscanf(fp, "%u", &a);
+  printf("%d", i);
   i=fscanf(fp, "%s", s);
+  printf("%d", i);
   printf("a: %u\n", a);
   printf("s: %s\n", s);
   i=fclose(fp);
-  printf("%d", i);
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();
