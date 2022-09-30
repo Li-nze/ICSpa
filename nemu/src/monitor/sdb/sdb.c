@@ -254,12 +254,8 @@ void init_sdb() {
   FILE *fp=NULL;
   fp=fopen("/tmp/input", "r");
   assert(fp!=NULL);
-  i=fclose(fp);
-  printf("%u", i);
-  /*
-  if(fp==NULL){printf("a");}
   word_t a;
-  char s[214748364];
+  char s[11111];
   i=fscanf(fp, "%u", &a);
   printf("%d", i);
   i=fscanf(fp, "%s", s);
@@ -267,7 +263,6 @@ void init_sdb() {
   printf("a: %u\n", a);
   printf("s: %s\n", s);
   i=fclose(fp);
-  */
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();
