@@ -263,6 +263,7 @@ static bool make_token(char *e) {
 		  ++p;
 	  }
 	  else if(tokens[p].type==TK_0XNUM){
+		  tokens[p].type=TK_NUM;
 		  word_t a;
 		  sscanf(tokens[p].str, "%u", &a);
 		  printf("%u\n", a);
