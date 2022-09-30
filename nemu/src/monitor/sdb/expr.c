@@ -245,7 +245,7 @@ static bool make_token(char *e) {
 	  else if(tokens[p].type==TK_REG){
 		  bool *success=(bool *)malloc(sizeof(bool));
 		  *success=true;
-		  //printf("%s\n",tokens[p].str);
+		  printf("str: %s\n",tokens[p].str);
 		  word_t a=isa_reg_str2val(tokens[p].str, success);
 		  if(*success){
 			  tokens[p].str[0]='\0';
