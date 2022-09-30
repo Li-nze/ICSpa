@@ -89,9 +89,9 @@ __attribute__((unused))static word_t divide(word_t a, word_t b){
 		return 0;
 	}
 	else{
-		unsigned s=a/b;
-		printf("s:%u\n",s);
-		printf("%u\n",a/b);
+		//unsigned s=a/b;
+		//printf("s:%u\n",s);
+		//printf("%u\n",a/b);
 		return (a)/(b);
 	}
 }
@@ -343,7 +343,7 @@ static word_t eval(Token *p, Token *q, bool *success){
 	}
 	else{
 		Token *node=find_operator(p,q);
-		printf("type:%s\n",(char *)&node->type);
+		//printf("type:%s\n",(char *)&node->type);
 		word_t (*oper)(word_t, word_t)=operate(node->type);
 		return oper(eval(p, node-1, success), eval(node+1, q, success));
 	}
@@ -360,12 +360,12 @@ word_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
 	
-  // to test the str tokens
+  /* to test the str tokens
   for(int i=0;i<nr_token;++i){
 	  printf("%s ",tokens[i].str);
   }
   printf("\n");
-  //
+  */
   Token *p=&tokens[0];
   Token *q=&tokens[nr_token-1];
   //printf("if paren: %d\n", check_parentheses(p,q));
