@@ -247,10 +247,10 @@ static bool check_parentheses(Token *p, Token *q){
 		for(Token *i=p+1;i!=q;++i){
 			//printf("check_par i: %s\n",i->str);
 			switch(i->type){
-				case '(':if(b==0){assert(parentheses_not_pair); return false;}
+				case '(':if(b==0){return false;}
 						 ++b;
 						 break;
-				case ')': if(b==0){assert(parentheses_not_pair); return false;}
+				case ')': if(b==0){return false;}
 						  else{--b;}
 						  break;
 			}
