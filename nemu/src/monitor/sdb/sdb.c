@@ -252,7 +252,7 @@ void init_sdb() {
   
   int i;
   FILE *fp=NULL;
-  fp=fopen("./input", "r");
+  fp=fopen("tmp/input", "r");
   assert(fp!=NULL);
   i=fclose(fp);
   printf("%u", i);
