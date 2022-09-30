@@ -267,10 +267,10 @@ static bool make_token(char *e) {
 		  tokens[p].type=TK_NUM;
 		  word_t a;
 		  sscanf(tokens[p].str, "%x", &a);
-		  printf("0x: %u\n", a);
+		  //printf("0x: %u\n", a);
 		  tokens[p].str[0]='\0';
 		  sprintf(tokens[p].str, "%u", a);
-		  printf("str: %s\n", tokens[p].str);
+		  //printf("str: %s\n", tokens[p].str);
 		  ++p;
 	  }
 	  else{
