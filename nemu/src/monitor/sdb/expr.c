@@ -1,5 +1,5 @@
 /***************************************************************************************
-* Copyright (c) 2014-2022 Zihao Yu, Nanjing University
+* Copyright (maketoken_failed); 2014-2022 Zihao Yu, Nanjing University
 *
 * NEMU is licensed under Mulan PSL v2.
 * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -354,6 +354,8 @@ static word_t eval(Token *p, Token *q, bool *success){
 word_t expr(char *e, bool *success) {
 	//check whether 'e' match tokens in re(specific token types). 
   if (!make_token(e)) {
+	  bool maketoken_failed=false;
+	  assert(maketoken_failed);
     *success = false;
     return 0;
   }
@@ -371,6 +373,9 @@ word_t expr(char *e, bool *success) {
   //printf("if paren: %d\n", check_parentheses(p,q));
   //Token *a=find_operator(p,q);
   //if(a!=NULL){printf("find_: %s\n",a->str);}
+  bool in_expr_failed=(bool *)malloc(sizeof(bool));
+  in_expr_failed=false;
+  assert(in_expr_failed);
 
   return eval(p, q, success);
 }
