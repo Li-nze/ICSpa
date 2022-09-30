@@ -266,6 +266,7 @@ void init_sdb() {
 		  fp1=fopen("~/pa1error.txt", "a");
 		  assert(fp1!=NULL);
 		  fprintf(fp1,"k:%d expr:%u gen:%u %s\n", k, b, a, s );
+		  i=fclose(fp1);
 	  }
 	  else{++count;}
   }
