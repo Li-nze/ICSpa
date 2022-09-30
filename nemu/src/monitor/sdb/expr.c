@@ -323,7 +323,7 @@ static word_t eval(Token *p, Token *q, bool *success){
 		bool bad_expression=false;
 		*success=false;
 		assert(bad_expression);
-		return -1;
+		return 0;
 	}
 	else if(p==q){//single token
 		if(p->type==TK_NUM){//is a number
@@ -335,7 +335,7 @@ static word_t eval(Token *p, Token *q, bool *success){
 			bool single_not_a_number=false;
 			*success=false;
 			assert(single_not_a_number);
-			return -1;
+			return 0;
 		}
 	}
 	else if(check_parentheses(p,q)){//enclosed with parentheses
@@ -343,6 +343,12 @@ static word_t eval(Token *p, Token *q, bool *success){
 	}
 	else{
 		Token *node=find_operator(p,q);
+		if(node==NULL){
+			bool find_operator_failed=false;
+			assert(find_operator_failed);
+			*success=false;
+			return 0;
+		}
 		//printf("type:%s\n",(char *)&node->type);
 		word_t (*oper)(word_t, word_t)=operate(node->type);
 		return oper(eval(p, node-1, success), eval(node+1, q, success));
