@@ -23,7 +23,7 @@
 #include <string.h>
 
 enum {
-  TK_NUM=0, TK_NEGATIVE=1,TK_NOTYPE = 256, TK_EQ,
+  TK_NUM=0, TK_NEGATIVE=1, TK_REG, TK_NOTYPE = 256, TK_EQ,
 
   /* TODO: Add more token types */
 
@@ -38,6 +38,7 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 	//NOTE: Do not forget to add/change the operator functions as well.
+	{"\\$(0|[a-z][0-9]+|[a-z]+)", TK_REG}, // register
 	{"[0-9]+", TK_NUM},	// decimal number
 	{"\\/", '/'},		// divide
 	{"\\*", '*'},		// multiply
@@ -196,7 +197,7 @@ static bool make_token(char *e) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 	  bool atoken_no_match=false;
 	  assert(atoken_no_match);
-	  printf("0\n");
+	  //printf("0\n");
       return false;
     }
   }
