@@ -168,7 +168,7 @@ static bool make_token(char *e) {
 					  break;
 			case '*': tokens[nr_token].type='*';
 					  break;
-			case '-': if(nr_token==0 || tokens[nr_token-1].type!=TK_NUM){tokens[nr_token].type=TK_NEGATIVE;}
+			case '-': if(nr_token==0 || (tokens[nr_token-1].type!=TK_NUM && tokens[nr_token-1].type!=')')){tokens[nr_token].type=TK_NEGATIVE;}
 					  else{tokens[nr_token].type='-';}
 					  break;
 			case ')': tokens[nr_token].type=')';
@@ -216,6 +216,7 @@ static bool make_token(char *e) {
   int p=0;
   while(p<nr_token){
 	  if(tokens[p].type==TK_NEGATIVE){
+		  printf("negative\n");
 		  delne(p);
 		  if(tokens[p].type==TK_NEGATIVE){
 			  delne(p);
