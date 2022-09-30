@@ -181,6 +181,8 @@ static bool make_token(char *e) {
 					  break;
 			case '+': tokens[nr_token].type='+';
 					  break;
+			case TK_REG: tokens[nr_token].type=TK_REG;
+						 break;
 			case TK_EQ: tokens[nr_token].type=TK_EQ;
 					  break;
         }
@@ -238,6 +240,20 @@ static bool make_token(char *e) {
 			  sscanf(tokens[p].str, "%u", &a);
 			  sprintf(tokens[p].str, "%u", (word_t)(-1)-a+1);
 			  ++p;
+		  }
+	  }
+	  else if(tokens[p].type==TK_REG){
+		  bool *success=(bool *)malloc(sizeof(bool));
+		  *success=true;
+		  word_t a=isa_reg_str2val(tokens[p].str, success);
+		  if(*success){
+			  tokens[p].str[0]='\0';
+			  sprintf(tokens[p].str, "%u", a);
+		  }
+		  else{
+			  bool isa_reg_str2val_failed=false;
+			  assert(isa_reg_str2val_failed);
+			  return false;
 		  }
 	  }
 	  else{
