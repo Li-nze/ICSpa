@@ -248,6 +248,7 @@ void init_sdb() {
   */
   //test the expr()
   FILE *fp=fopen("input", "r");
+  if(fp==NULL){printf("a");}
   word_t a;
   int i;
   char s[214748364];
