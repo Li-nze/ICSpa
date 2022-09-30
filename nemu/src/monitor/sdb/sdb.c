@@ -248,7 +248,7 @@ void init_sdb() {
   */
   //test the expr()
   
-  /*
+  /*unit test for expr
   int i,count=0,k=0;
   bool *success;
   success=(bool *)malloc(sizeof(bool));
@@ -275,10 +275,13 @@ void init_sdb() {
   printf("i:%d\n", i);
   printf("count:%d\n", count);
   */
+  /*test
   bool *success;
   success=(bool *)malloc(sizeof(bool));
   *success=true;
+  printf("%u\n", expr("((22930263-48102903))/11916539", success));
   printf("%u\n", expr("4269794656/11916539", success));
+  */
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();
