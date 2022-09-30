@@ -248,20 +248,24 @@ void init_sdb() {
   */
   //test the expr()
   
-  int i;
+  int i,count;
+  bool *success;
+  success=(bool *)malloc(sizeof(bool));
+  *success=true;
   FILE *fp=NULL;
-  fp=fopen("/tmp/inpu", "r");
+  fp=fopen("/tmp/input", "r");
   assert(fp!=NULL);
   word_t a;
   char s[11111];
-  i=fscanf(fp, "%u", &a);
-  printf("%d", EOF);
-  printf("%d", i);
-  i=fscanf(fp, "%s", s);
-  printf("%d", i);
-  printf("a: %u\n", a);
-  printf("s: %s\n", s);
+  while(fscanf(fp, "%u", &a)!=EOF){
+	  i=fscanf(fp, "%s", s);
+	  word_t b=expr(s, success);
+	  if(a!=b){printf("%u %u %s\n", b, a, s);}
+	  else{++count;}
+  }
   i=fclose(fp);
+  printf("i:%d\n", i);
+  printf("count:%d\n", count);
 
   /* Initialize the watchpoint pool. */
   init_wp_pool();

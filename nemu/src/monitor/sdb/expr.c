@@ -67,7 +67,9 @@ typedef struct token {
 static unsigned int maxstrlen=32;
 
 // record the tokens(type, substr) that has been recognized. 
-static Token tokens[32] __attribute__((used)) = {};
+//static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[1111] __attribute__((used)) = {};
+
 
 //indecate the number of token that has been recognized. 
 static int nr_token __attribute__((used))  = 0;
