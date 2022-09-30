@@ -268,6 +268,7 @@ static bool make_token(char *e) {
 		  printf("%u\n", a);
 		  tokens[p].str[0]='\0';
 		  sprintf(tokens[p].str, "%u", a);
+		  ++p;
 	  }
 	  else{
 		  ++p;
