@@ -23,7 +23,7 @@
 #include <string.h>
 
 enum {
-  TK_NUM=0, TK_NEGATIVE=1, TK_REG, TK_NOTYPE = 256, TK_EQ,
+  TK_NUM=0, TK_NEGATIVE=1, TK_REG, TK_0XNUM, TK_POINTER, TK_NOTYPE = 256, TK_EQ,
 
   /* TODO: Add more token types */
 
@@ -38,6 +38,7 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 	//NOTE: Do not forget to add/change the operator functions as well.
+	{"0(x|X)[0-9]+", TK_0XNUM}, // hexadecimal number
 	{"\\$(0|[a-z][0-9]+|[a-z]+)", TK_REG}, // register
 	{"[0-9]+", TK_NUM},	// decimal number
 	{"\\/", '/'},		// divide
@@ -163,9 +164,11 @@ static bool make_token(char *e) {
          */
 
 		bool record=true;
-        switch (rules[i].token_type) {
+        switch (rules[i].token_type) {//record the token type
 			case TK_NOTYPE: record=false;
 							break;
+			case TK_0XNUM: tokens[nr_token].type=TK_0XNUM;
+						   break;
 			case TK_NUM: tokens[nr_token].type=TK_NUM;
 						 break;
 			case '/': tokens[nr_token].type='/';
@@ -186,7 +189,7 @@ static bool make_token(char *e) {
 			case TK_EQ: tokens[nr_token].type=TK_EQ;
 					  break;
         }
-		if(record){
+		if(record){//record the no-space tokens
 			strncpy(tokens[nr_token].str,substr_start,maxstrlen);
 			tokens[nr_token].str[substr_len]=0;
 			++nr_token;
@@ -199,16 +202,15 @@ static bool make_token(char *e) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 	  bool atoken_no_match=false;
 	  assert(atoken_no_match);
-	  //printf("0\n");
       return false;
     }
   }
   
-  //delete the a th element(type=negative) of tokens[]. 
-  void delne(int a){
-	  if(tokens[a].type!=TK_NEGATIVE){
-		  bool not_negative_operator=false;
-		  assert(not_negative_operator);
+  //delete the a th token of specific type of tokens[]. 
+  void deltoken(int a, int type){
+	  if(tokens[a].type!=type){
+		  bool not_specific_token=false;
+		  assert(not_specific_token);
 		  return;
 	  }
 	  else{
@@ -221,14 +223,14 @@ static bool make_token(char *e) {
 	  }
   }
 
-  //tackle the negative operator by module operation. 
+  //tackle the negative operator by module operation, register,  
   int p=0;
   while(p<nr_token){
 	  if(tokens[p].type==TK_NEGATIVE){
 		  //printf("negative\n");
-		  delne(p);
+		  deltoken(p, TK_NEGATIVE);
 		  if(tokens[p].type==TK_NEGATIVE){
-			  delne(p);
+			  deltoken(p, TK_NEGATIVE);
 		  }
 		  else if(tokens[p].type!=TK_NUM){
 			  bool negative_not_before_num_ne=false;
