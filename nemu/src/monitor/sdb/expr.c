@@ -194,6 +194,9 @@ static bool make_token(char *e) {
 	//if not match
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
+	  bool atoken_no_match=false;
+	  assert(atoken_no_match);
+	  printf("0\n");
       return false;
     }
   }
