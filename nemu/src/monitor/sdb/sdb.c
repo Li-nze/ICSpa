@@ -255,6 +255,7 @@ void init_sdb() {
   word_t a;
   char s[11111];
   i=fscanf(fp, "%u", &a);
+  printf("%d", EOF);
   printf("%d", i);
   i=fscanf(fp, "%s", s);
   printf("%d", i);
