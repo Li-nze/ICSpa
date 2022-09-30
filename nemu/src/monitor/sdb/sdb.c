@@ -248,7 +248,7 @@ void init_sdb() {
   */
   //test the expr()
   
-  int i,count;
+  int i,count,k=0;
   bool *success;
   success=(bool *)malloc(sizeof(bool));
   *success=true;
@@ -258,6 +258,7 @@ void init_sdb() {
   word_t a;
   char s[11111];
   while(fscanf(fp, "%u", &a)!=EOF){
+	  ++k;printf("k:%d\n", k);
 	  i=fscanf(fp, "%s", s);
 	  word_t b=expr(s, success);
 	  if(a!=b){printf("%u %u %s\n", b, a, s);}
