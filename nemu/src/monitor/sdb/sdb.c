@@ -261,7 +261,7 @@ void init_sdb() {
   */
   //test the expr()
   
-  /*unit test for expr
+  //unit test for expr
   int i,count=0,k=0;
   bool *success;
   success=(bool *)malloc(sizeof(bool));
@@ -287,7 +287,7 @@ void init_sdb() {
   i=fclose(fp);
   printf("i:%d\n", i);
   printf("count:%d\n", count);
-  */
+  //
   /*test
   bool *success;
   success=(bool *)malloc(sizeof(bool));
