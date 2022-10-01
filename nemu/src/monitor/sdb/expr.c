@@ -308,7 +308,7 @@ static bool make_token(char *e) {
 				  for(int i=0; i<a-p; ++i){b=paddr_read((paddr_t)b, 4); deltoken(p, TK_POINTER);}
 				  tokens[p].str[0]='\0';
 				  sprintf(tokens[p].str, "%u", b);
-				  printf("b:%u\n", b);
+				  //printf("b:%u\n", b);
 			  }
 		  }
 
@@ -319,7 +319,7 @@ static bool make_token(char *e) {
 		  ++p;
 	  }
   }
-  if(check){
+  if(check){//printf tokens
 	  printf("tokens: ");
 	  for(int j=0; j<nr_token; ++j){printf("%s ", tokens[j].str);}
 	  printf("\n");
