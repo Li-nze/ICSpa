@@ -208,6 +208,7 @@ static bool make_token(char *e) {
       return false;
     }
   }
+  printf("*:%d\n", '*');
   bool check=true;
   //check=false;
   if(check){
