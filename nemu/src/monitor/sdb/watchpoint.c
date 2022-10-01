@@ -108,9 +108,9 @@ void print_wp(){
 		printf("the watchpoint pool is empty.\n");
 	}
 	else{
-		printf("%-3s  %-16s  %-12s  %-8s\n","NO", "EPXR", "DE-VAL", "HEX-VAL");
+		printf("%-3s  %-16s  %-16s  %-10s\n","NO", "EPXR", "DE-VAL", "HEX-VAL");
 		while(a!=NULL){
-			printf("%-3d  %-16s  %-12u  %#8x\n", a->NO, a->wpexpr, a->val, a->val);
+			printf("%-3d  %-16s  %-16u  %#10x\n", a->NO, a->wpexpr, a->val, a->val);
 			a=a->next;
 		}
 	}
@@ -127,7 +127,7 @@ int check_wp(){
 		if(success){
 			if(a->val!=b){
 				f=1;
-			   	printf("%-3d  %-16s  %-10u->%-10u\n", a->NO, a->wpexpr, b, a->val);
+			   	printf("%-3d  %-16s  %-10u->%-10u\n", a->NO, a->wpexpr, a->val, b);
 				a->val=b;
 			}
 		}
