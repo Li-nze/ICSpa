@@ -134,9 +134,9 @@ static int cmd_w(char *args){
 	if(*success){
 		new_wp(arg, a);
 		printf("\n");
-		free_wp(0);
-		printf("\n");
 		print_wp();
+		printf("\n");
+		free_wp(0);
 	}
 	else{
 		bool cannot_solve_expr_watchpoint=false;
