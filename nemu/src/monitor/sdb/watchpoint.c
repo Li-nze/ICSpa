@@ -69,8 +69,10 @@ void free_wp(int nu){
 		return;
 	}
 	else if(a->NO==nu){
+		printf("remove the NO.%d successfully.\n", nu);
 		if(head==tail){
 			head=NULL;tail=NULL;
+			printf("watchpoint pool is empty now\n");
 		}
 		else{
 			head=a->next;
@@ -79,8 +81,6 @@ void free_wp(int nu){
 		free_=a;
 		a->wpexpr=NULL;
 		a->val=-1;
-		printf("remove the NO.%d successfully.\n", nu);
-		printf("watchpoint pool is empty now\n");
 	}
 	else{
 		while(a->next!=NULL && a->next->NO!=nu){a=a->next;}
