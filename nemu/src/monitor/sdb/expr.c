@@ -208,7 +208,6 @@ static bool make_token(char *e) {
       return false;
     }
   }
-  printf("aaa\n");
   bool check=true;
   //check=false;
   if(check){
@@ -312,6 +311,11 @@ static bool make_token(char *e) {
 	  else{
 		  ++p;
 	  }
+  }
+  if(check){
+	  printf("tokens: ");
+	  for(int j=0; j<nr_token; ++j){printf("%s ", tokens[j].str);}
+	  printf("\n");
   }
   return true;
 }
