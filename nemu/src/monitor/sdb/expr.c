@@ -394,16 +394,15 @@ static int operator_priority(int type){//return the priority of the operator
 static Token *find_operator(Token *p, Token *q){
 	//extract the operators
 	Token *operator[q-p+1]__attribute__((unused));
-	Token *a=p;
-	Token *b=q;
+	Token *e=p;
 	unsigned int len=0;
-	while(a-1!=q){
-		if(a->type!=TK_NUM && a->type!=TK_NEGATIVE){
-		//if(a->type!=TK_NUM ){
-			operator[len]=a;
+	while(e-1!=q){
+		if(e->type!=TK_NUM && e->type!=TK_NEGATIVE){
+		//if(d->type!=TK_NUM ){
+			operator[len]=e;
 			++len;
 		}
-		++a;
+		++e;
 	}
 	//no operator in tokens. 
 	if(len==0){return NULL;}
@@ -411,30 +410,30 @@ static Token *find_operator(Token *p, Token *q){
 	operator[len]=NULL;
 	for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
 
-	a=operator[0];
-	b=operator[len-1];
-	if(check_parentheses(a,b)){++a;--b;}
+	unsigned a=0;
+	unsigned b=len-1;
+	if(check_parentheses(operator[a], operator[b])){++a;--b;}
 	int c=0;
-	//unsigned int count=0;
+	unsigned int count=0;
 	Token *d=NULL;
-	//printf("find_ count:\n");
+	printf("find_ count:\n");
 	for(;b!=a-1;--b){
-		//printf("%u, %s\n", count, b->str);
-		//++count;
-		switch(b->type){
-			case TK_OR: if(c==0){return b;}
+		printf("%u, %s\n", count, operator[b]->str);
+		count++;
+		switch(operator[b]->type){
+			case TK_OR: if(c==0){return operator[b];}
 						break;
 			case TK_AND: if(c==0){//if outside () and has min operator priority, record it.
-							 if(d==NULL || operator_priority(d->type)<operator_priority(b->type)){d=b;}
+							 if(d==NULL || operator_priority(d->type)<operator_priority(operator[b]->type)){d=operator[b];}
 						 }
 			case TK_EQ: case TK_NEQ: if(c==0){//if outside () and has min operator priority, record it.
-							 if(d==NULL || operator_priority(d->type)<operator_priority(b->type)){d=b;}
+							 if(d==NULL || operator_priority(d->type)<operator_priority(operator[b]->type)){d=operator[b];}
 						 }
 			case '+': case '-': if(c==0){//if outside () and has min operator priority, record it.
-							 if(d==NULL || operator_priority(d->type)<operator_priority(b->type)){d=b;}
+							 if(d==NULL || operator_priority(d->type)<operator_priority(operator[b]->type)){d=operator[b];}
 						 }
 			case '*': case '/': if(c==0){//if outside () and has min operator priority, record it.
-							 if(d==NULL || operator_priority(d->type)<operator_priority(b->type)){d=b;}
+							 if(d==NULL || operator_priority(d->type)<operator_priority(operator[b]->type)){d=operator[b];}
 						 }
 			case '(': --c;
 					  break;
@@ -442,10 +441,10 @@ static Token *find_operator(Token *p, Token *q){
 					  break;
 			/*
 		   	case '+': case '-'://not in (), immediately return + or -
-					  if(c==0){return b;}
+					  if(c==0){return operator[b];}
 					  break;
 			case '*': case '/':
-					  if(c==0 && d==NULL){d=b;}//not in () and is the first * or /
+					  if(c==0 && d==NULL){d=operator[b];}//not in () and is the first * or /
 					  break;
 			*/
 		}
