@@ -46,6 +46,7 @@ void new_wp(char *ex, word_t va){
 		tail=a;
 		a->wpexpr=ex;
 		a->val=va;
+		printf("Add NO.%d watchpoint successfully.\n", a->NO);
 		return;
 	}
 	else{
@@ -61,6 +62,7 @@ void free_wp(int nu){
 	if(a==NULL){
 		int head_empty=0;
 		wpassert?assert(head_empty):printf("watchpoint head is empty\n");
+		return;
 	}
 	else if(a->NO==nu){
 		if(head==tail){
@@ -88,6 +90,23 @@ void free_wp(int nu){
 			free_=b;
 			b->wpexpr=NULL;
 			b->val=-1;
+		}
+	}
+	printf("remove the NO.%d successfully.\n", nu);
+	return;
+}
+
+
+void print_wp(){
+	WP *a=head;
+	if(a==NULL){
+		printf("the watchpoint pool is empty.\n");
+	}
+	else{
+		printf("%-3s  %-12s  %-12s  %-8s\n","NO", "EPXR", "DE-VAL", "HEX-VAL");
+		while(a!=NULL){
+			printf("%-3d  %-12s  %-12u  %#8x\n", a->NO, a->wpexpr, a->val, a->val);
+			a=a->next;
 		}
 	}
 	return;
