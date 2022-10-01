@@ -486,7 +486,7 @@ static word_t eval(Token *p, Token *q, bool *success){
 			*success=false;
 			return 0;
 		}
-		//printf("type:%s\n",(char *)&node->type);
+		printf("type:%s\n",node->str);
 		word_t (*oper)(word_t, word_t)=operate(node->type);
 		return oper(eval(p, node-1, success), eval(node+1, q, success));
 	}
