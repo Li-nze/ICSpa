@@ -122,11 +122,10 @@ int check_wp(){
 	WP *a=head;
 	//printf("h:expr:%s %u\n", a->wpexpr, a->val);
 	while(a!=NULL){
-		bool *success=(bool *)malloc(sizeof(bool));
-		*success=true;
-		word_t b=expr(a->wpexpr, success);
-		if(*success){
-			if(a->val!=b){f=1; printf("%-3d  %-16s  %-10u->%-10u", a->NO, a->wpexpr, b, a->val);}
+		bool success=true;
+		word_t b=expr(a->wpexpr, &success);
+		if(success){
+			if(a->val!=b){f=1; printf("%-3d  %-16s  %-10u->%-10u\n", a->NO, a->wpexpr, b, a->val);}
 		}
 		else{
 			int wp_evalexpr_failed=0;
