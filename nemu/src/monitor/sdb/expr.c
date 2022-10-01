@@ -24,7 +24,7 @@
 #include <memory/paddr.h>
 
 enum {
-  TK_NUM=0, TK_NEGATIVE=1, TK_REG, TK_0XNUM, TK_POINTER, TK_NOTYPE = 256, TK_EQ,
+  TK_NUM=0, TK_NEGATIVE=1, TK_REG, TK_0XNUM, TK_POINTER, TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_AND, TK_OR
 
   /* TODO: Add more token types */
 
@@ -51,6 +51,9 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
+  {"!=", TK_NEQ},		// not equal
+  {"&&", TK_AND},		// and
+  {"\\|\\|", TK_OR}		// or
 };
 
 
@@ -99,6 +102,10 @@ __attribute__((unused))static word_t divide(word_t a, word_t b){
 		return (a)/(b);
 	}
 }
+__attribute__((unused))static word_t eqo(word_t a, word_t b){return (a)==(b);}
+__attribute__((unused))static word_t neqo(word_t a, word_t b){return (a)!=(b);}
+__attribute__((unused))static word_t ando(word_t a, word_t b){return (a)&&(b);}
+__attribute__((unused))static word_t oro(word_t a, word_t b){return (a)||(b);}
 
 
 //return the operator functions accrodingly.
@@ -112,7 +119,16 @@ word_t (*operate(int type))(word_t, word_t){
 						  break;
 				case '/': return divide;
 						  break;
+				case TK_EQ: return eqo;
+							break;
+				case TK_NEQ: return neqo;
+							break;
+				case TK_AND: return ando;
+							break;
+				case TK_OR: return oro;
+							break;
 				default:  assert(0);
+						  return NULL;
 	}
 }
 
@@ -190,6 +206,12 @@ static bool make_token(char *e) {
 			case TK_REG: tokens[nr_token].type=TK_REG;
 						 break;
 			case TK_EQ: tokens[nr_token].type=TK_EQ;
+					  break;
+			case TK_NEQ: tokens[nr_token].type=TK_NEQ;
+					  break;
+			case TK_AND: tokens[nr_token].type=TK_AND;
+					  break;
+			case TK_OR: tokens[nr_token].type=TK_OR;
 					  break;
         }
 		if(record){//record the no-space tokens
@@ -364,7 +386,8 @@ static Token *find_operator(Token *p, Token *q){
 	Token *b=q;
 	unsigned int len=0;
 	while(a-1!=q){
-		if(a->type!=TK_NUM && a->type!=TK_NEGATIVE){
+		//if(a->type!=TK_NUM && a->type!=TK_NEGATIVE){
+		if(a->type!=TK_NUM ){
 			operator[len]=a;
 			++len;
 		}
