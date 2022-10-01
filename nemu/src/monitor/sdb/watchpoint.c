@@ -47,7 +47,9 @@ void new_wp(char *ex, word_t va){
 		tail=a;
 		printf("aaa\n");
 		a->wpexpr=(char *)malloc(sizeof(ex)+sizeof(ex[0]));
+		printf("aaa\n");
 		strcpy(a->wpexpr, ex);
+		printf("aaa\n");
 		a->val=va;
 		printf("Add NO.%d watchpoint successfully.\n", a->NO);
 		//bool b=1;
