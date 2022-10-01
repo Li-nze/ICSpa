@@ -116,6 +116,7 @@ void print_wp(){
 int check_wp(){
 	int f=0;
 	WP *a=head;
+	printf("h:expr:%s %u\n", a->wpexpr, a->val);
 	while(a!=NULL){
 		bool *success=(bool *)malloc(sizeof(bool));
 		*success=true;
