@@ -47,6 +47,7 @@ void new_wp(char *ex, word_t va){
 		a->wpexpr=ex;
 		a->val=va;
 		printf("Add NO.%d watchpoint successfully.\n", a->NO);
+	printf("h:expr:%s %u\n", a->wpexpr, a->val);
 		return;
 	}
 	else{
