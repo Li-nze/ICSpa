@@ -31,6 +31,9 @@ static uint64_t g_timer = 0; // unit: us
 // whether to print the log message while processing
 static bool g_print_step = false;
 
+//hlz add
+int check_wp();
+
 void device_update();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
@@ -40,6 +43,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   /*print the log message for single instruction*/
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
+  if(check_wp()==1){nemu_state.state=NEMU_STOP;}
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {

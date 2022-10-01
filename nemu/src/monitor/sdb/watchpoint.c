@@ -76,7 +76,7 @@ void free_wp(int nu){
 		a->wpexpr=NULL;
 		a->val=-1;
 		printf("remove the NO.%d successfully.\n", nu);
-		printf("now no watchpoint is on use.\n");
+		printf("watchpoint pool is empty now\n");
 	}
 	else{
 		while(a->next!=NULL && a->next->NO!=nu){a=a->next;}
@@ -104,13 +104,33 @@ void print_wp(){
 		printf("the watchpoint pool is empty.\n");
 	}
 	else{
-		printf("%-3s  %-12s  %-12s  %-8s\n","NO", "EPXR", "DE-VAL", "HEX-VAL");
+		printf("%-3s  %-16s  %-12s  %-8s\n","NO", "EPXR", "DE-VAL", "HEX-VAL");
 		while(a!=NULL){
-			printf("%-3d  %-12s  %-12u  %#8x\n", a->NO, a->wpexpr, a->val, a->val);
+			printf("%-3d  %-16s  %-12u  %#8x\n", a->NO, a->wpexpr, a->val, a->val);
 			a=a->next;
 		}
 	}
 	return;
+}
+
+int check_wp(){
+	int f=0;
+	WP *a=head;
+	while(a!=NULL){
+		bool *success=(bool *)malloc(sizeof(bool));
+		*success=true;
+		word_t b=expr(a->wpexpr, success);
+		if(*success){
+			if(a->val!=b){f=1; printf("%-3d  %-16s  %-10u->%-10u", a->NO, a->wpexpr, b, a->val);}
+		}
+		else{
+			int wp_evalexpr_failed=0;
+			wpassert?assert(wp_evalexpr_failed):printf("solve the expr for watchpoint %d failed.\n", a->NO);
+			return -1;
+		}
+		a=a->next;
+	}
+	return f;
 }
 
 
