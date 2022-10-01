@@ -208,8 +208,7 @@ static bool make_token(char *e) {
       return false;
     }
   }
-  printf("*:%d\n", '*');
-  bool check=true;
+  bool check=true;//for check the recognized tokens
   //check=false;
   if(check){
 	  printf("tokens: ");
@@ -239,25 +238,7 @@ static bool make_token(char *e) {
   //tackle the negative operator by module operation, register, hexadecimal number, pointer 
   int p=0;
   while(p<nr_token){
-	  if(tokens[p].type==TK_NEGATIVE){
-		  //printf("negative\n");
-		  deltoken(p, TK_NEGATIVE);
-		  if(tokens[p].type==TK_NEGATIVE){
-			  deltoken(p, TK_NEGATIVE);
-		  }
-		  else if(tokens[p].type!=TK_NUM){
-			  bool negative_not_before_num_ne=false;
-			  assert(negative_not_before_num_ne);
-			  return false;
-		  }
-		  else{
-			  word_t a;
-			  sscanf(tokens[p].str, "%u", &a);
-			  sprintf(tokens[p].str, "%u", (word_t)(-1)-a+1);
-			  ++p;
-		  }
-	  }
-	  else if(tokens[p].type==TK_REG){//convert the register to number
+	  if(tokens[p].type==TK_REG){//convert the register to number
 		  tokens[p].type=TK_NUM;
 		  bool *success=(bool *)malloc(sizeof(bool));
 		  *success=true;
@@ -285,9 +266,32 @@ static bool make_token(char *e) {
 		  //printf("str: %s\n", tokens[p].str);
 		  ++p;
 	  }
-		  //derefence the opinter(may the duplicate opinter)
-	  else if(tokens[p].type==TK_POINTER){
-		  void deref(int p){
+	  else{
+		  ++p;
+	  }
+  }
+  p=0;
+  while(p<nr_token){
+	  if(tokens[p].type==TK_NEGATIVE){//tackle the negative operator
+		  //printf("negative\n");
+		  deltoken(p, TK_NEGATIVE);
+		  if(tokens[p].type==TK_NEGATIVE){
+			  deltoken(p, TK_NEGATIVE);
+		  }
+		  else if(tokens[p].type!=TK_NUM){
+			  bool negative_not_before_num_ne=false;
+			  assert(negative_not_before_num_ne);
+			  return false;
+		  }
+		  else{
+			  word_t a;
+			  sscanf(tokens[p].str, "%u", &a);
+			  sprintf(tokens[p].str, "%u", (word_t)(-1)-a+1);
+			  ++p;
+		  }
+	  }
+	  else if(tokens[p].type==TK_POINTER){//derefence the opinter(may the duplicate opinter)
+		  void deref(int p){ 
 			  int a=p;
 			  while(a<nr_token && tokens[a].type==TK_POINTER){++a;}
 			  if(a==nr_token){
