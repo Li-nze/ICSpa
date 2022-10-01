@@ -133,6 +133,8 @@ static int cmd_w(char *args){
 	word_t a=expr(arg, success);
 	if(*success){
 		new_wp(arg, a);
+		free_wp(0);
+		print_wp();
 	}
 	else{
 		bool cannot_solve_expr_watchpoint=false;

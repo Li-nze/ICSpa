@@ -23,7 +23,8 @@ word_t expr(char *e, bool *success);
 
 static int wpassert;
 void new_wp(char *ex, word_t va);
-void free_wp(int nu);
+void free_wp(int );
+void print_wp();
 
 
 #endif
