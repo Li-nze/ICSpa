@@ -38,12 +38,8 @@ WP *new_wp(){
 		WP *a=free_;
 		free_=free_->next;
 		a->next=NULL;
-		if(tail!=NULL){
-			tail->next=a;
-		}
-		else{
-			head=a;
-		}
+		if(tail!=NULL){tail->next=a;}
+		else{head=a;}
 		tail=a;
 		return a;
 	}
@@ -61,19 +57,18 @@ void free_wp(WP *wp){
 		int head_empty=0;
 		wpassert?assert(head_empty):printf("watchpoint head is empty\n");
 	}
-	else{
-		if(a==wp){
-			if(head==tail){
-				head=NULL;tail=NULL;
-				printf("now no watchpoint is on use.\n");
-			}
-			else{
-				head=a->next;
-			}
-			wp->next=free_;
-			free_=wp;
-			return;
+	else if(a==wp){
+		if(head==tail){
+			head=NULL;tail=NULL;
+			printf("now no watchpoint is on use.\n");
 		}
+		else{
+			head=a->next;
+		}
+		wp->next=free_;
+		free_=wp;
+	}
+	else{
 		while(a->next!=NULL && a->next!=wp){a=a->next;}
 		if(a->next==NULL){
 			int no_watchpoint_in_head=0;
