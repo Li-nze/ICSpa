@@ -125,7 +125,11 @@ int check_wp(){
 		bool success=true;
 		word_t b=expr(a->wpexpr, &success);
 		if(success){
-			if(a->val!=b){f=1; printf("%-3d  %-16s  %-10u->%-10u\n", a->NO, a->wpexpr, b, a->val);}
+			if(a->val!=b){
+				f=1;
+			   	printf("%-3d  %-16s  %-10u->%-10u\n", a->NO, a->wpexpr, b, a->val);
+				a->val=b;
+			}
 		}
 		else{
 			int wp_evalexpr_failed=0;
