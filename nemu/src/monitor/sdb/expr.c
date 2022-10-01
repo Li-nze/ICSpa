@@ -175,7 +175,7 @@ static bool make_token(char *e) {
 						 break;
 			case '/': tokens[nr_token].type='/';
 					  break;
-			case '*': if(nr_token==0 || (tokens[nr_token-1].type!=TK_NUM && tokens[nr_token-1].type!=')' && tokens[nr_token-1].type!=TK_0XNUM && tokens[nr_token-1].type!=TK_REG)){tokens[nr_token-1].type=TK_POINTER;}
+			case '*': if(nr_token==0 || (tokens[nr_token-1].type!=TK_NUM && tokens[nr_token-1].type!=')' && tokens[nr_token-1].type!=TK_0XNUM && tokens[nr_token-1].type!=TK_REG)){tokens[nr_token].type=TK_POINTER;}
 					  else{tokens[nr_token].type='*';}
 					  break;
 			case '-': if(nr_token==0 || (tokens[nr_token-1].type!=TK_NUM && tokens[nr_token-1].type!=')' && tokens[nr_token-1].type!=TK_0XNUM && tokens[nr_token-1].type!=TK_REG)){tokens[nr_token].type=TK_NEGATIVE;}
