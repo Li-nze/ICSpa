@@ -214,6 +214,7 @@ static bool make_token(char *e) {
   if(check){
 	  printf("tokens: ");
 	  for(int j=0; j<nr_token; ++j){printf("%s ", tokens[j].str);}
+	  printf("\n");
   }
   
   //delete the a th token of specific type of tokens[]. 
