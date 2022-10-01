@@ -21,6 +21,7 @@
 #include <regex.h>
 //hlz add
 #include <string.h>
+#include <memory/paddr.h>
 
 enum {
   TK_NUM=0, TK_NEGATIVE=1, TK_REG, TK_0XNUM, TK_POINTER, TK_NOTYPE = 256, TK_EQ,
@@ -174,9 +175,10 @@ static bool make_token(char *e) {
 						 break;
 			case '/': tokens[nr_token].type='/';
 					  break;
-			case '*': tokens[nr_token].type='*';
+			case '*': if(nr_token==0 || (tokens[nr_token-1].type!=TK_NUM && tokens[nr_token-1].type!=')' && tokens[nr_token-1].type!=TK_0XNUM && tokens[nr_token-1].type!=TK_REG)){tokens[nr_token-1].type=TK_POINTER;}
+					  else{tokens[nr_token].type='*';}
 					  break;
-			case '-': if(nr_token==0 || (tokens[nr_token-1].type!=TK_NUM && tokens[nr_token-1].type!=')')){tokens[nr_token].type=TK_NEGATIVE;}
+			case '-': if(nr_token==0 || (tokens[nr_token-1].type!=TK_NUM && tokens[nr_token-1].type!=')' && tokens[nr_token-1].type!=TK_0XNUM && tokens[nr_token-1].type!=TK_REG)){tokens[nr_token].type=TK_NEGATIVE;}
 					  else{tokens[nr_token].type='-';}
 					  break;
 			case ')': tokens[nr_token].type=')';
@@ -224,7 +226,7 @@ static bool make_token(char *e) {
 	  }
   }
 
-  //tackle the negative operator by module operation, register,  
+  //tackle the negative operator by module operation, register, hexadecimal number, pointer 
   int p=0;
   while(p<nr_token){
 	  if(tokens[p].type==TK_NEGATIVE){
@@ -245,7 +247,7 @@ static bool make_token(char *e) {
 			  ++p;
 		  }
 	  }
-	  else if(tokens[p].type==TK_REG){
+	  else if(tokens[p].type==TK_REG){//convert the register to number
 		  tokens[p].type=TK_NUM;
 		  bool *success=(bool *)malloc(sizeof(bool));
 		  *success=true;
@@ -263,7 +265,7 @@ static bool make_token(char *e) {
 		  }
 		  ++p;
 	  }
-	  else if(tokens[p].type==TK_0XNUM){
+	  else if(tokens[p].type==TK_0XNUM){//convert the 0x to number
 		  tokens[p].type=TK_NUM;
 		  word_t a;
 		  sscanf(tokens[p].str, "%x", &a);
@@ -271,6 +273,32 @@ static bool make_token(char *e) {
 		  tokens[p].str[0]='\0';
 		  sprintf(tokens[p].str, "%u", a);
 		  //printf("str: %s\n", tokens[p].str);
+		  ++p;
+	  }
+		  //derefence the opinter(may the duplicate opinter)
+	  else if(tokens[p].type==TK_POINTER){
+		  void deref(int p){
+			  int a=p;
+			  while(a<nr_token && tokens[a].type==TK_POINTER){++a;}
+			  if(a==nr_token){
+				  bool find_opinter_failed=false;
+				  assert(find_opinter_failed);
+			  }
+			  else if(tokens[a].type!=TK_NUM){
+				  bool deref_wrong=false;
+				  assert(deref_wrong);
+			  }
+			  else{
+				  word_t b;
+				  sscanf(tokens[a].str, "%u", &b);
+				  for(int i=0; i<a-p; ++i){b=paddr_read((paddr_t)b, 4); deltoken(p, TK_POINTER);}
+				  tokens[p].str[0]='\0';
+				  sprintf(tokens[p].str, "%u", b);
+				  printf("b:%u\n", b);
+			  }
+		  }
+
+		  deref(p);
 		  ++p;
 	  }
 	  else{

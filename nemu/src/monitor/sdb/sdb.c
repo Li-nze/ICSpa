@@ -121,8 +121,8 @@ static int cmd_p(char *args){
 	*success=true;
 	word_t a=expr(arg, success);
 	if(*success){printf("%u\n", a);}
-	//else{bool expr_failed=false; assert(expr_failed);}
-	else{printf("%u\n", a);}
+	else{bool expr_failed=false; assert(expr_failed);}
+	//else{printf("%u\n", a);}
 	return 0;
 }
 
