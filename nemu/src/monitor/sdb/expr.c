@@ -379,6 +379,18 @@ static bool check_parentheses(Token *p, Token *q){
 }
 
 
+static int operator_priority(int type){//return the priority of the operator
+	switch(type){
+		case '*': case '/': return 1;break;
+		case '+': case '-': return 2;break;
+		case TK_EQ: case TK_NEQ: return 3;break;
+		case TK_AND: return 4;break;
+		case TK_OR: return 5;break;
+		default :return 0;break;
+	}
+}
+
+
 static Token *find_operator(Token *p, Token *q){
 	//extract the operators
 	Token *operator[q-p+1]__attribute__((unused));
@@ -386,8 +398,8 @@ static Token *find_operator(Token *p, Token *q){
 	Token *b=q;
 	unsigned int len=0;
 	while(a-1!=q){
-		//if(a->type!=TK_NUM && a->type!=TK_NEGATIVE){
-		if(a->type!=TK_NUM ){
+		if(a->type!=TK_NUM && a->type!=TK_NEGATIVE){
+		//if(a->type!=TK_NUM ){
 			operator[len]=a;
 			++len;
 		}
@@ -410,17 +422,35 @@ static Token *find_operator(Token *p, Token *q){
 		//printf("%u, %s\n", count, b->str);
 		//++count;
 		switch(b->type){
+			case TK_OR: if(c==0){return b;}
+						break;
+			case TK_AND: if(c==0){//if outside () and has min operator priority, record it.
+							 if(d==NULL || operator_priority(d->type)<operator_priority(b->type)){d=b;}
+						 }
+			case TK_EQ: case TK_NEQ: if(c==0){//if outside () and has min operator priority, record it.
+							 if(d==NULL || operator_priority(d->type)<operator_priority(b->type)){d=b;}
+						 }
+			case '+': case '-': if(c==0){//if outside () and has min operator priority, record it.
+							 if(d==NULL || operator_priority(d->type)<operator_priority(b->type)){d=b;}
+						 }
+			case '*': case '/': if(c==0){//if outside () and has min operator priority, record it.
+							 if(d==NULL || operator_priority(d->type)<operator_priority(b->type)){d=b;}
+						 }
 			case '(': --c;
 					  break;
 			case ')': ++c;
 					  break;
+			/*
 		   	case '+': case '-'://not in (), immediately return + or -
 					  if(c==0){return b;}
+					  break;
 			case '*': case '/':
 					  if(c==0 && d==NULL){d=b;}//not in () and is the first * or /
+					  break;
+			*/
 		}
 	}
-	if(d!=NULL){return d;}//no + or - outside (), return the first * or /
+	if(d!=NULL){return d;}//not || outside (), return the first operator which has min priority. 
 	else{bool find_first_operator_error=false; assert(find_first_operator_error); return NULL; }
 }
 
