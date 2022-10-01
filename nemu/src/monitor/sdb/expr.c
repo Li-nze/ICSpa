@@ -231,7 +231,7 @@ static bool make_token(char *e) {
     }
   }
   bool check=true;//for check the recognized tokens
-  //check=false;
+  check=false;
   if(check){
 	  printf("tokens: ");
 	  for(int j=0; j<nr_token; ++j){printf("%d ", tokens[j].type);}
@@ -409,18 +409,18 @@ static Token *find_operator(Token *p, Token *q){
 	if(len==0){return NULL;}
 
 	operator[len]=NULL;
-	for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
+	//for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
 
 	a=operator[0];
 	b=operator[len-1];
 	if(check_parentheses(a,b)){++a;--b;}
 	int c=0;
-	//unsigned int count=0;
+	unsigned int count=0;
 	Token *d=NULL;
-	//printf("find_ count:\n");
+	printf("find_ count:\n");
 	for(;b!=a-1;--b){
-		//printf("%u, %s\n", count, b->str);
-		//++count;
+		printf("%u, %s\n", count, b->str);
+		++count;
 		switch(b->type){
 			case TK_OR: if(c==0){return b;}
 						break;
