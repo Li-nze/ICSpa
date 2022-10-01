@@ -136,9 +136,7 @@ static int cmd_w(char *args){
 	bool success=true;
 	word_t a=expr(arg, &success);
 	if(success){
-		printf("aaa\n");
 		new_wp(arg, a);
-		printf("aaa\n");
 	}
 	else{
 		bool cannot_solve_expr_watchpoint=false;
