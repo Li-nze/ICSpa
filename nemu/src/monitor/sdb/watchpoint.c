@@ -15,10 +15,13 @@
 
 #include "sdb.h"
 
+
 #define NR_WP 32
 
 typedef struct watchpoint {
   int NO;
+  char *wpexpr;
+  word_t val;
   struct watchpoint *next;
 
   /* TODO: Add more members if necessary */
@@ -33,7 +36,7 @@ static int wpassert=1;
 //static int wpassert=0;
 
 
-WP *new_wp(){
+void new_wp(char *ex, word_t va){
 	if(free_!=NULL){
 		WP *a=free_;
 		free_=free_->next;
@@ -41,23 +44,25 @@ WP *new_wp(){
 		if(tail!=NULL){tail->next=a;}
 		else{head=a;}
 		tail=a;
-		return a;
+		a->wpexpr=ex;
+		a->val=va;
+		return;
 	}
 	else{
 		int no_watchpoint_available=0;
 		wpassert?assert(no_watchpoint_available):printf("No free watchpoint available!\n");
-		return NULL;
+		return;
 	}
 }
 
 
-void free_wp(WP *wp){
+void free_wp(int nu){
 	WP *a=head;
 	if(a==NULL){
 		int head_empty=0;
 		wpassert?assert(head_empty):printf("watchpoint head is empty\n");
 	}
-	else if(a==wp){
+	else if(a->NO==nu){
 		if(head==tail){
 			head=NULL;tail=NULL;
 			printf("now no watchpoint is on use.\n");
@@ -65,19 +70,24 @@ void free_wp(WP *wp){
 		else{
 			head=a->next;
 		}
-		wp->next=free_;
-		free_=wp;
+		a->next=free_;
+		free_=a;
+		a->wpexpr=NULL;
+		a->val=-1;
 	}
 	else{
-		while(a->next!=NULL && a->next!=wp){a=a->next;}
+		while(a->next!=NULL && a->next->NO!=nu){a=a->next;}
 		if(a->next==NULL){
 			int no_watchpoint_in_head=0;
-			wpassert?assert(no_watchpoint_in_head):printf("NO: %d watchpoint not in head.\n", wp->NO);
+			wpassert?assert(no_watchpoint_in_head):printf("NO: %d watchpoint not in head.\n", nu);
 		}
 		else{
-			a->next=wp->next;
-			wp->next=free_;
-			free_=wp;
+			WP *b=a->next;
+			a->next=b->next;
+			b->next=free_;
+			free_=b;
+			b->wpexpr=NULL;
+			b->val=-1;
 		}
 	}
 	return;
@@ -89,6 +99,8 @@ void init_wp_pool() {
   for (i = 0; i < NR_WP; i ++) {
     wp_pool[i].NO = i;
     wp_pool[i].next = (i == NR_WP - 1 ? NULL : &wp_pool[i + 1]);
+	wp_pool[i].wpexpr=NULL;
+	wp_pool[i].val=-1;
   }
 
   head = NULL;

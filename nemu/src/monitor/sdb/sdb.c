@@ -115,7 +115,7 @@ static int cmd_si(char *args){
 }
 
 
-static int cmd_p(char *args){
+static int cmd_p(char *args){ 
 	char *arg=strtok(NULL, "\n");
 	bool *success=(bool *)malloc(sizeof(bool));
 	*success=true;
@@ -123,6 +123,21 @@ static int cmd_p(char *args){
 	if(*success){printf("%u\n", a);}
 	else{bool expr_failed=false; assert(expr_failed);}
 	//else{printf("%u\n", a);}
+	return 0;
+}
+
+static int cmd_w(char *args){
+	char *arg=strtok(NULL, "\n");
+	bool *success=(bool *)malloc(sizeof(bool));
+	*success=true;
+	word_t a=expr(arg, success);
+	if(*success){
+		new_wp(arg, a);
+	}
+	else{
+		bool cannot_solve_expr_watchpoint=false;
+		wpassert?assert(cannot_solve_expr_watchpoint):printf("can not solve the expression of watchpoint\n");
+	}
 	return 0;
 }
 
@@ -143,7 +158,7 @@ static struct {
   {"info", "Print the infomation of SUBCMD", cmd_info },
   {"x", "evaluate the EXPR, and print the N 4 btyes from the address of EXPR", cmd_x },
   {"p", "evaluate and print the EXPR", cmd_p },
-  //{ "w", "halt when the EXPR changes", cmd_w },
+  {"w", "halt when the EXPR changes", cmd_w },
   //{ "d", "delete the N watchpoint", cmd_d }
 
   /* TODO: Add more commands */
@@ -153,7 +168,7 @@ static struct {
 #define NR_CMD ARRLEN(cmd_table)
 
 
-static int  cmd_info(char *args){
+static int cmd_info(char *args){
 	char *arg=strtok(NULL," ");
 	if(arg==NULL){
 		for (int i = 0; i < NR_CMD;++i){
