@@ -133,10 +133,10 @@ static int cmd_w(char *args){
 		printf("Please enter the expr.\n");
 		return 0;
 	}
-	bool *success=(bool *)malloc(sizeof(bool));
-	*success=true;
-	word_t a=expr(arg, success);
-	if(*success){
+	bool success=true;
+	word_t a=expr(arg, &success);
+	if(success){
+		printf("aaa\n");
 		new_wp(arg, a);
 	}
 	else{
