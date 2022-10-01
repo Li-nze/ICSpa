@@ -138,6 +138,7 @@ static int cmd_w(char *args){
 	if(success){
 		printf("aaa\n");
 		new_wp(arg, a);
+		printf("aaa\n");
 	}
 	else{
 		bool cannot_solve_expr_watchpoint=false;
