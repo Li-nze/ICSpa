@@ -45,9 +45,10 @@ void new_wp(char *ex, word_t va){
 		if(tail!=NULL){tail->next=a;}
 		else{head=a;}
 		tail=a;
-		printf("ex:%s\n", ex);
+		printf("ex:%s %ld %ld\n", ex, strlen(ex), sizeof(ex));
 		a->wpexpr=(char *)malloc(sizeof(ex)+sizeof(ex[0]));
 		printf("aaa\n");
+		printf("ex:%s %ld %ld\n", ex, strlen(ex), sizeof(ex));
 		printf("ex:%s\n", ex);
 		strcpy(a->wpexpr, ex);
 		a->val=va;
