@@ -426,16 +426,20 @@ static Token *find_operator(Token *p, Token *q){
 			case TK_AND: if(c==0){//if outside () and has min operator priority, record it.
 							 if(d==NULL || operator_priority(d->type)<operator_priority(operator[b]->type)){d=operator[b];}
 						 }
+						 break;
 			case TK_EQ: case TK_NEQ: if(c==0){//if outside () and has min operator priority, record it.
 							 if(d==NULL || operator_priority(d->type)<operator_priority(operator[b]->type)){d=operator[b];}
-						 }
+									 }
+									 break;
 			case '+': case '-': if(c==0){//if outside () and has min operator priority, record it.
 printf("aa:%d", operator_priority(d->type)<operator_priority(operator[b]->type));
 							 if(d==NULL || operator_priority(d->type)<operator_priority(operator[b]->type)){d=operator[b];}
-						 }
+								}
+								break;
 			case '*': case '/': if(c==0){//if outside () and has min operator priority, record it.
 							 if(d==NULL || operator_priority(d->type)<operator_priority(operator[b]->type)){d=operator[b];}
-						 }
+								}
+								break;
 			case '(': --c;
 					  break;
 			case ')': ++c;
