@@ -408,18 +408,18 @@ static Token *find_operator(Token *p, Token *q){
 	if(len==0){return NULL;}
 
 	operator[len]=NULL;
-	for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
+	//for(int i=0;i<len;++i){printf("%s ", operator[i]->str);}
 
 	unsigned a=0;
 	unsigned b=len-1;
 	if(check_parentheses(operator[a], operator[b])){++a;--b;}
 	int c=0;
-	unsigned int count=0;
+	//unsigned int count=0;
 	Token *d=NULL;
-	printf("find_ count:\n");
+	//printf("find_ count:\n");
 	for(;b!=a-1;--b){
-		printf("%u, %s\n", count, operator[b]->str);
-		count++;
+		//printf("%u, %s\n", count, operator[b]->str);
+		//count++;
 		switch(operator[b]->type){
 			case TK_OR: if(c==0){return operator[b];}
 						break;
@@ -489,7 +489,7 @@ static word_t eval(Token *p, Token *q, bool *success){
 			*success=false;
 			return 0;
 		}
-		printf("type:%s\n",node->str);
+		//printf("type:%s\n",node->str);
 		word_t (*oper)(word_t, word_t)=operate(node->type);
 		return oper(eval(p, node-1, success), eval(node+1, q, success));
 	}
