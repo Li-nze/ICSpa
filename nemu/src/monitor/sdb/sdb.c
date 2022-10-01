@@ -126,8 +126,13 @@ static int cmd_p(char *args){
 	return 0;
 }
 
+
 static int cmd_w(char *args){
 	char *arg=strtok(NULL, "\n");
+	if(arg==NULL){
+		printf("Please enter the expr.\n");
+		return 0;
+	}
 	bool *success=(bool *)malloc(sizeof(bool));
 	*success=true;
 	word_t a=expr(arg, success);
@@ -137,6 +142,23 @@ static int cmd_w(char *args){
 	else{
 		bool cannot_solve_expr_watchpoint=false;
 		wpassert?assert(cannot_solve_expr_watchpoint):printf("can not solve the expression of watchpoint\n");
+	}
+	return 0;
+}
+
+
+static int cmd_d(char *args){
+	char *arg=strtok(NULL, " ");
+	if(arg==NULL){
+		printf("Please enter the watchpoint number to delete.\n");
+	}
+	else{
+		while(arg!=NULL){
+			int a;
+			sscanf(arg, "%d", &a);
+			free_wp(a);
+			arg=strtok(NULL, " ");
+		}
 	}
 	return 0;
 }
@@ -159,7 +181,7 @@ static struct {
   {"x", "evaluate the EXPR, and print the N 4 btyes from the address of EXPR", cmd_x },
   {"p", "evaluate and print the EXPR", cmd_p },
   {"w", "halt when the EXPR changes", cmd_w },
-  //{ "d", "delete the N watchpoint", cmd_d }
+  {"d", "delete the N watchpoint", cmd_d }
 
   /* TODO: Add more commands */
 
@@ -179,7 +201,7 @@ static int cmd_info(char *args){
 		isa_reg_display();		
 	}
 	else if(arg[0]=='w'){
-		printf("still unrealized\n");
+		print_wp();
 	}
 	return 0;
 }
