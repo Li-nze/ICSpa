@@ -49,8 +49,8 @@ void new_wp(char *ex, word_t va){
 		strcpy(a->wpexpr, ex);
 		a->val=va;
 		printf("Add NO.%d watchpoint successfully.\n", a->NO);
-		bool b=1;
-	printf("h:expr:%s %u %u\n", a->wpexpr, a->val, expr(a->wpexpr, &b));
+		//bool b=1;
+	//printf("h:expr:%s %u %u\n", a->wpexpr, a->val, expr(a->wpexpr, &b));
 		return;
 	}
 	else{
@@ -120,7 +120,7 @@ void print_wp(){
 int check_wp(){
 	int f=0;
 	WP *a=head;
-	printf("h:expr:%s %u\n", a->wpexpr, a->val);
+	//printf("h:expr:%s %u\n", a->wpexpr, a->val);
 	while(a!=NULL){
 		bool *success=(bool *)malloc(sizeof(bool));
 		*success=true;
