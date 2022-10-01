@@ -133,7 +133,9 @@ static int cmd_w(char *args){
 	word_t a=expr(arg, success);
 	if(*success){
 		new_wp(arg, a);
+		printf("\n");
 		free_wp(0);
+		printf("\n");
 		print_wp();
 	}
 	else{
