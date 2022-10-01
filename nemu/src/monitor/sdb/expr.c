@@ -212,6 +212,8 @@ static bool make_token(char *e) {
   //check=false;
   if(check){
 	  printf("tokens: ");
+	  for(int j=0; j<nr_token; ++j){printf("%d ", tokens[j].type);}
+	  printf("\n");
 	  for(int j=0; j<nr_token; ++j){printf("%s ", tokens[j].str);}
 	  printf("\n");
   }
