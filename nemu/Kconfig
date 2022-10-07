@@ -119,7 +119,7 @@ config CC_ASAN
   default n
 
 if CC_DEBUG
-config CONFIG_WATCHPOINT
+config WATCHPOINT
 	bool "Enables watchpoint information"
 	default n
 endif
